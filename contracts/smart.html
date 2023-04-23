@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Smart Contract Interaction</title>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="./web3.min.js"></script>
+	<script src="./contract_abi.js"></script>
+	<script src="./contract.js"></script>
+</head>
+<body>
+	<h1>Smart Contract Interaction</h1>
+
+	<h2>Farmer Contract</h2>
+	<p>Enter the following details to add a new farmer:</p>
+	<label for="farmerName">Name:</label>
+	<input type="text" id="farmerName"><br><br>
+	<label for="farmerAddress">Address:</label>
+	<input type="text" id="farmerAddress"><br><br>
+	<label for="farmerPhone">Phone:</label>
+	<input type="text" id="farmerPhone"><br><br>
+	<button onclick="addFarmer()">Add Farmer</button>
+
+	<hr>
+
+	<h2>Industry Contract</h2>
+	<p>Enter the following details to add a new industry:</p>
+	<label for="industryName">Name:</label>
+	<input type="text" id="industryName"><br><br>
+	<label for="industryAddress">Address:</label>
+	<input type="text" id="industryAddress"><br><br>
+	<label for="industryPhone">Phone:</label>
+	<input type="text" id="industryPhone"><br><br>
+	<button onclick="addIndustry()">Add Industry</button>
+
+	<hr>
+
+	<h2>Marketplace Contract</h2>
+	<p>Enter the following details to add a new product:</p>
+	<label for="productName">Name:</label>
+	<input type="text" id="productName"><br><br>
+	<label for="productPrice">Price:</label>
+	<input type="text" id="productPrice"><br><br>
+	<label for="productQuantity">Quantity:</label>
+	<input type="text" id="productQuantity"><br><br>
+	<button onclick="addProduct()">Add Product</button>
+
+	<hr>
+
+	<h2>Token Contract</h2>
+	<p>Enter the following details to mint new tokens:</p>
+	<label for="tokenAmount">Amount:</label>
+	<input type="text" id="tokenAmount"><br><br>
+	<button onclick="mintTokens()">Mint Tokens</button>
+
+	<hr>
+
+	<h2>DAO Contract</h2>
+	<p>Enter the following details to create a new proposal:</p>
+	<label for="proposalTitle">Title:</label>
+	<input type="text" id="proposalTitle"><br><br>
+	<label for="proposalDescription">Description:</label>
+	<input type="text" id="proposalDescription"><br><br>
+	<label for="proposalAmount">Amount:</label>
+	<input type="text" id="proposalAmount"><br><br>
+	<button onclick="createProposal()">Create Proposal</button>
+</body>
+</html>
