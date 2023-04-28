@@ -32,6 +32,11 @@ body {
     background-color: #0062cc;
   }
 
+  .dao-heading {
+    padding-top: 10px;
+    font-size: 3rem;
+  }
+
   .gradient-btn.v2 {
     color: #fff;
     height: 55px;
@@ -50,10 +55,23 @@ body {
 
   .dao-heading {
     color: #fff;
+  } 
+
+  .description-container {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    padding: 40px;
   }
 
   .dao-description {
     color: #fff;
+    text-align: center;
+    padding: 30px;
+  }
+
+  .description-image {
+    width: 30%;
   }
   
   /* Media query for mobile devices */
