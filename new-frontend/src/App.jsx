@@ -7,11 +7,14 @@ import DaoDashboard from './components/DaoDashboard/DaoDashboard'
 
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [registeredDAOs, setRegisteredDAOs] = useState([]); 
   
   return (
     <div className="App">
-      <DaoDashboard /> 
+      <DaoDashboard 
+        registeredDAOs={registeredDAOs}
+        setRegisteredDAOs={setRegisteredDAOs}
+      /> 
     </div>
   )
 }
