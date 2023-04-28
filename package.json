@@ -29,7 +29,6 @@
   "bugs": {
     "url": "https://github.com/Polygon-Academy/starter-kits.git/issues"
   },
-
   "dependencies": {
     "@ethersproject/providers": "^5.4.3",
     "@testing-library/jest-dom": "^5.14.1",
@@ -41,6 +40,7 @@
     "@web3-react/injected-connector": "^6.0.7",
     "@web3-react/walletconnect-connector": "^6.2.4",
     "@web3-react/walletlink-connector": "^6.2.3",
+    "hardhat": "^2.14.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
@@ -71,5 +71,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^2.0.2"
   }
 }
