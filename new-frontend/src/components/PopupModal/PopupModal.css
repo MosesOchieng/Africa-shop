@@ -17,6 +17,7 @@
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     text-align: center;
+    width: 50vw;
   }
   
   .close-btn {
@@ -35,3 +36,13 @@
     background-color: #0062cc;
   }
   
+  .content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  input {
+    margin: 10px;
+  }

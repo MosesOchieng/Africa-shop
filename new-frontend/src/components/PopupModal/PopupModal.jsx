@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
 import './PopupModal.css';
 
-const PopupModal = ({ handleShowModal, handleCloseModal, showModal }) => {
+const PopupModal = ({ showModal, handleCloseModal, modalTitle, modalContent }) => {
 
   return (
     <div>
-      {showModal && (
-        <div className="modal">
-          <div className="modal-content">
-            <h2>This is the Modal Title</h2>
-            <p>This is the Modal Content</p>
-            <button className="close-btn" onClick={handleCloseModal}>
-              Close
-            </button>
-          </div>
+    {showModal && (
+      <div className="modal">
+        <div className="modal-content">
+          <h2>{modalTitle}</h2>
+          <p>{modalContent}</p>
+          <button className="close-btn" onClick={handleCloseModal}>
+            Close
+          </button>
         </div>
-      )}
-    </div>
+      </div>
+    )}
+  </div>
   );
 };
 
