@@ -1,4 +1,4 @@
-Project Name: Polygon Circular Community
+# Project Name: Polygon Circular Community
 
 Description:
 Polygon Circular Community is a decentralized platform that offers loans and investment opportunities to farmers across Africa. It is built on the Polygon network, which is a high-performance, low-cost blockchain network. The platform allows farmers to access affordable loans and investments through the Aave protocol on Polygon and the 1inch fusion API. This project aims to address the challenges that farmers in Africa face in accessing finance for their agricultural activities.
