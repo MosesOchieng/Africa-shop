@@ -16,7 +16,7 @@ Use Starter Kits build your DAPP right away!
 
 
 ```javascripts
-npm install -g truffle 
+
 ```
 
 > truflle is used for develop, test, and deploy smart contracts.
