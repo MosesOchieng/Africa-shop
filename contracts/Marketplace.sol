@@ -1,7 +1,11 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.19;
 
-contract FarmDAO {
+interface FarmersDAO {
+    function addInvestment(uint daoId) external payable;
+}
+
+contract Marketplace {
 
     address public farmer;
     uint256 public fundingGoal;
@@ -9,15 +13,25 @@ contract FarmDAO {
     uint256 public numInvestors;
     mapping(address => uint256) public investments;
 
-    constructor(address _farmer, uint256 _fundingGoal) {
-        farmer = _farmer;
-        fundingGoal = _fundingGoal;
+    FarmersDAO public farmersDAO;
+
+    constructor(address _farmersDAO) {
+        farmersDAO = FarmersDAO(_farmersDAO);
     }
 
-    function invest() public payable {
+    function invest(uint256 daoID) public payable {
         require(msg.sender != farmer, "Farmer cannot invest in their own DAO");
         require(msg.value > 0, "Investment must be greater than 0");
         require(currentFunding + msg.value <= fundingGoal, "Investment exceeds funding goal");
+
+        // address daoAddress = farmersDAO.getDaoAddress(daoID);
+        // require(daoAddress != address(0), "Invalid DAO ID");
+
+        // (bool success,) = daoAddress.call{value: msg.value}("");
+        // Dao dao = Dao(daoAddress);
+        // require(success, "Investment failed");
+
+        farmersDAO.addInvestment{value: msg.value}(daoID);
 
         if (investments[msg.sender] == 0) {
             numInvestors++;
@@ -29,7 +43,6 @@ contract FarmDAO {
 
     function withdrawFunds() public {
         require(msg.sender == farmer, "Only the farmer can withdraw funds");
-        require(currentFunding >= fundingGoal, "Funding goal has not been reached");
 
         payable(farmer).transfer(currentFunding);
         currentFunding = 0;

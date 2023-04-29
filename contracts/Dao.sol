@@ -23,6 +23,7 @@ contract FarmDAO {
         string description;
         string name; 
         uint id; 
+        uint amountInvested; 
     }
 
     // Events
@@ -39,10 +40,13 @@ contract FarmDAO {
     }
 
     // Functions
-    function addInvestment() public payable {
+    function addInvestment(uint daoId) public payable {
         require(msg.value >= minimumInvestment, "Investment amount is below the minimum required.");
         require(investments[msg.sender] == 0, "Investor has already contributed to the fund.");
         require(msg.sender != farmer1 && msg.sender != farmer2, "Farmers cannot invest in the fund.");
+        
+        Dao storage dao = daos[daoId];
+        dao.amountInvested += msg.value;
 
         investments[msg.sender] = msg.value;
         totalInvestment += msg.value;
@@ -51,10 +55,10 @@ contract FarmDAO {
     }
 
     function createDao(address _farmer1, address _farmer2, string memory _description, string memory _name) public {
-        require(msg.sender == owner, "Only the owner can create the DAO.");
-        require(investments[farmer1] > 0 && investments[farmer2] > 0, "Both farmers must invest in the fund to create the DAO.");
+        // require(msg.sender == owner, "Only the owner can create the DAO.");
+        // require(investments[farmer1] > 0 && investments[farmer2] > 0, "Both farmers must invest in the fund to create the DAO.");
         daoID++; 
-
+        uint _amountInvested = 0; 
         uint currentId = daoID; 
 
         Dao memory newDao = Dao({
@@ -62,7 +66,8 @@ contract FarmDAO {
             address2: _farmer2,
             description: _description, 
             name: _name, 
-            id: currentId
+            id: currentId, 
+            amountInvested: _amountInvested
         });
 
         daos[currentId] = newDao;
@@ -83,4 +88,9 @@ contract FarmDAO {
         }
         return allDaos;
     }
+
+    function getTotalInvestment(uint daoId) public view returns (uint) {
+        return daos[daoId].amountInvested;
+    }
+    
 }
