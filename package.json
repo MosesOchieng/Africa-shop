@@ -30,7 +30,10 @@
     "url": "https://github.com/Polygon-Academy/starter-kits.git/issues"
   },
   "dependencies": {
+    "@1inch/limit-order-protocol": "^2.0.4",
+    "@aave/protocol-v2": "^1.0.1",
     "@ethersproject/providers": "^5.4.3",
+    "@openzeppelin/contracts": "^4.8.3",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
