@@ -1,7 +1,4 @@
-// import React from 'react'
-// import { ethers } from 'ethers';
 
-// const ConnectWallet = () => {
   const connectWallet = async () => { 
     console.log("Connecting wallet")
     try { 
@@ -20,20 +17,16 @@
       console.log("Account is: ", account); 
       console.log("Chain ID is: ", chainId); 
 
+      return account; 
+
       if (chainId != 5){
         // setGoerli(false); 
         console.log("Goerli not present!")
       }
   
     } catch (error) {
-      console.error(error)
+      console.error(error); 
     }  
   } 
-  // return (
-  //   <button onClick={connectWallet}>
-  //      ConnectWallet
-  //   </button>
-  // )
-// }
 
 export default connectWallet; 

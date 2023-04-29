@@ -3,8 +3,9 @@ import React, { useState } from 'react';
 import './Dashboard.css'; 
 import PopupModal from '../PopupModal/PopupModal';
 import connectWallet from '../ConnectWallet/ConnectWallet';
+import getProviderOrSigner from '../../contractInstance';
 
-const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs }) => {
+const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs, address, setAddress }) => {
   const [showModal, setShowModal] = useState(false);
   const [modalTitle, setModalTitle] = useState("");
   const [modalContent, setModalContent] = useState(""); 
@@ -21,53 +22,72 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs }) => {
   };
 
   const submitLogin = (event) => {
-    connectWallet(); 
     console.log("Submit login")
   }
 
-  const submitRegister = (event) => {
-    const { name, value } = event.target; 
-    let daoName; 
-    let walletAddressOne; 
-    let walletAddressTwo; 
-    let description; 
-
+  const submitRegister = async (event) => {
+    // const { name, value } = event.target; 
+    // let daoName; 
+    // let walletAddressOne; 
+    // let walletAddressTwo; 
+    // let description; 
     
-    if (name == "Name") {
-      daoName = value; 
-      console.log("Name is: ", value); 
-      console.log("Name2 is: ", daoName); 
-    }
+    // if (name == "Name") {
+    //   daoName = value; 
+    //   console.log("Name is: ", value); 
+    //   console.log("Name2 is: ", daoName); 
+    // }
 
-    if (name == "walletAddress1") {
-      walletAddressOne = value; 
-    }
+    // if (name == "walletAddress1") {
+    //   walletAddressOne = value; 
+    // }
 
-    if (name == "walletAddress2") {
-      walletAddressTwo = value; 
-    }
+    // if (name == "walletAddress2") {
+    //   walletAddressTwo = value; 
+    // }
 
-    if (name == "description") {
-      description = value; 
-      console.log("Description is: ", value); 
-      console.log("Description 2 is: ", description); 
-    } 
+    // if (name == "description") {
+    //   description = value; 
+    //   console.log("Description is: ", value); 
+    //   console.log("Description 2 is: ", description); 
+    // } 
 
-    const newDao = {
-      name: daoName, 
-      walletAddressOne: walletAddress1, 
-      walletAddressTwo: walletAddress2, 
-      description: description
-    }
+    // const newDao = {
+    //   name: daoName, 
+    //   walletAddressOne: walletAddress1, 
+    //   walletAddressTwo: walletAddress2, 
+    //   description: description
+    // }
 
-    setRegisteredDAOs((prevState) => [...prevState, newDao])
-    setShowModal(false); 
+    // setRegisteredDAOs((prevState) => [...prevState, newDao])
+    // setShowModal(false); 
+
+    const { farmDaoContract } = await getProviderOrSigner(true); 
+    console.log("FarmDAO contract: ", farmDaoContract); 
+
+    console.log("Creating the DAO..."); 
+    const tx = await farmDaoContract.createDao(
+      "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266", 
+      "0x70997970C51812dc3A010C7d01b50e0d17dc79C8", 
+      "Coffee plant farmers", 
+      "Webulenyo farmers", 
+      { gasLimit: 1000000 }
+    )
+    console.log("Adding DAO...")
+
+    await tx.wait(); 
+    console.log("DAO created succesfully!")
+
   }
 
   console.log("Registered DAOs: ", registeredDAOs); 
 
 
-  const handleShowModal = (title) => {
+  const handleShowModal = async (title) => {
+    console.log("Connecting wallet...")
+    const account =  await connectWallet(); 
+    setAddress(account); 
+
     setModalTitle(title);
     if (title === "REGISTER") {
       setModalContent(
