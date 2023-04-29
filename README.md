@@ -7,6 +7,11 @@ Technical Details:
 The Polygon Circular Community platform is built using various blockchain technologies, including Ethereum, Aave, and 1inch fusion API. The platform uses smart contracts to facilitate the lending and borrowing of funds on the Aave protocol on Polygon. The smart contracts are written in Solidity, which is a programming language used to develop smart contracts on the Ethereum network. The 1inch fusion API is used to provide liquidity to the platform by aggregating liquidity from various decentralized exchanges on the Polygon network.
 
 The platform's front-end is developed using React, a popular JavaScript library used for building user interfaces. The platform's front-end interacts with the smart contracts on the Polygon network through the Web3.js library, which is a JavaScript library used to interact with Ethereum-based smart contracts. The front-end allows farmers to create a FarmDAO, which is a decentralized autonomous organization that enables them to access funding through the Aave protocol on Polygon. The front-end also allows investors to browse through the available FarmDAOs and invest in them.
+
+# Work in progress folder.
+
+This the project folder that implements aave on polygon for lending but has errors related to conflicts between solidity version and different aave libraries.
+
 # Starter Kits
 
 Vite-branch
