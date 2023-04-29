@@ -5,7 +5,7 @@ import './App.css'
 // import partciles from 'particles.js'; // WORK ON THIS IMPORTS
 import DaoDashboard from './components/DaoDashboard/DaoDashboard'
 import ConnectWallet from './components/ConnectWallet/ConnectWallet'
-import Marketplace from './components/Marketplace/Marketplace'
+import DaoMarketplace from './components/DaoMarketplace/DaoMarketplace'
 
 
 function App() {
@@ -20,7 +20,10 @@ function App() {
         address={address}
         setAddress={setAddress}
       /> 
-      
+      <DaoMarketplace 
+        registeredDAOs={registeredDAOs}
+        setRegisteredDAOs={setRegisteredDAOs}
+      /> 
     </div>
   )
 }
