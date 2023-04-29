@@ -5,6 +5,7 @@ pragma solidity ^0.8.19;
 contract FarmDAO {
 
     // Variables
+    string public title; 
     address public farmer1;
     address public farmer2;
     address public owner;
@@ -12,17 +13,29 @@ contract FarmDAO {
     uint public minimumInvestment;
     mapping(address => uint) public investments;
     bool public daoCreated;
+    uint public daoID; 
+    Dao[] public totalDAOs;
+    
+    // DAO struct
+    struct Dao {
+        address address1;
+        address address2;
+        string description;
+        string name; 
+        uint id; 
+    }
 
     // Events
     event InvestmentAdded(address investor, uint amount);
     event DaoCreated(address daoAddress);
 
+    // Dao farmers 
+    mapping(address => address[]) public daoFarmers;
+    mapping(uint => Dao) public daos;
+
     // Constructor
-    constructor(address _farmer1, address _farmer2, uint _minimumInvestment) {
-        farmer1 = _farmer1;
-        farmer2 = _farmer2;
-        minimumInvestment = _minimumInvestment;
-        owner = msg.sender;
+    constructor(string memory _title) {
+        title = _title; 
     }
 
     // Functions
@@ -37,13 +50,37 @@ contract FarmDAO {
         emit InvestmentAdded(msg.sender, msg.value);
     }
 
-    function createDao() public {
+    function createDao(address _farmer1, address _farmer2, string memory _description, string memory _name) public {
         require(msg.sender == owner, "Only the owner can create the DAO.");
         require(investments[farmer1] > 0 && investments[farmer2] > 0, "Both farmers must invest in the fund to create the DAO.");
+        daoID++; 
 
-        // DAO creation code here
+        uint currentId = daoID; 
+
+        Dao memory newDao = Dao({
+            address1: _farmer1,
+            address2: _farmer2,
+            description: _description, 
+            name: _name, 
+            id: currentId
+        });
+
+        daos[currentId] = newDao;
+        totalDAOs.push(newDao);
+
+        //Adding farmers to DAO
+        daoFarmers[address(this)].push(_farmer1);
+        daoFarmers[address(this)].push(_farmer2);
 
         daoCreated = true;
         emit DaoCreated(address(this));
+    }
+
+    function getAllDaos() public view returns (Dao[] memory) {
+        Dao[] memory allDaos = new Dao[](daoID);
+        for (uint i = 1; i <= daoID; i++) {
+            allDaos[i - 1] = daos[i];
+        }
+        return allDaos;
     }
 }
