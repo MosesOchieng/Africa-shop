@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 // import { useHistory } from 'react-router-dom';
 import './Dashboard.css'; 
 import PopupModal from '../PopupModal/PopupModal';
+import connectWallet from '../ConnectWallet/ConnectWallet';
 
 const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs }) => {
   const [showModal, setShowModal] = useState(false);
@@ -51,6 +52,11 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs }) => {
     }
   }
 
+  const submitLogin = (event) => {
+    connectWallet(); 
+    console.log("Submit login")
+  }
+
   const submitRegister = (event) => {
     const { name, value } = event.target; 
     let daoName; 
@@ -90,7 +96,7 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs }) => {
     setShowModal(false); 
   }
 
-  console.log("Registered DAOs: ", registeredDAOs); 
+  // console.log("Registered DAOs: ", registeredDAOs); 
 
 
   const handleShowModal = (title) => {
@@ -189,8 +195,8 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs }) => {
       <div>
         {/* <button className='gradient-btn v2' onClick={() => handleRegister(true, false)}>Register DAO</button>
         <button className='gradient-btn v2' onClick={() => handleLogin(false, true)}>Log in DAO</button> */}
-        <button onClick={() => handleShowModal("REGISTER", "This is the Register Modal Content")}>Register DAO</button>
-        <button onClick={() => handleShowModal("LOG IN", "This is the Log In Modal Content")}>Log in DAO</button>
+        <button onClick={() => { handleShowModal("REGISTER", "This is the Register Modal Content"); connectWallet() }}>Register DAO</button>
+        <button onClick={() => { handleShowModal("LOG IN", "This is the Log In Modal Content"); connectWallet() }}>Log in DAO</button>
       </div>
 
       <PopupModal 

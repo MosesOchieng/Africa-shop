@@ -4,6 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 // import partciles from 'particles.js'; // WORK ON THIS IMPORTS
 import DaoDashboard from './components/DaoDashboard/DaoDashboard'
+import ConnectWallet from './components/ConnectWallet/ConnectWallet'
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         registeredDAOs={registeredDAOs}
         setRegisteredDAOs={setRegisteredDAOs}
       /> 
+      {/* <ConnectWallet />  */}
     </div>
   )
 }
