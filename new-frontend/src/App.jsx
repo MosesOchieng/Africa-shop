@@ -20,9 +20,7 @@ function App() {
         address={address}
         setAddress={setAddress}
       /> 
-      <Marketplace 
-        
-      />
+      
     </div>
   )
 }

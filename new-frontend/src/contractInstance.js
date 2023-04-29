@@ -1,5 +1,5 @@
 import { Provider } from "@ethersproject/providers";
-import { marketplaceAbi, farmDaoAbi, farmdaoContractAddress, marketplaceContractAddress } from "./constants ";
+import { marketplaceAbi, farmDaoAbi, farmdaoContractAddress, marketplaceContractAddress } from "./constants";
 import { ethers } from "ethers";
 
 const getProviderOrSigner = async (needSigner = false) => {
