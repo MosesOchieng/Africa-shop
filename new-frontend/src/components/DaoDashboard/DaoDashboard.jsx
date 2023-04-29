@@ -20,38 +20,6 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs }) => {
     setShowModal(false);
   };
 
-  const handleRegister = (event) => {
-    const { name, value } = event.target; 
-    
-    if (name == "Name") {
-      setName(value)
-    }
-
-    if (name == "walletAddress1") {
-      setWalletAddress1(value)
-    }
-
-    if (name == "walletAddress2") {
-      setWalletAddress2(value)
-    }
-
-    if (name == "description") {
-      setDescription(value)
-    }
-  }
-
-  const handleLogin = (event) => {
-    const { name, value } = event.target; 
-    
-    if (name == "DaoName") {
-      setDaoName(value)
-    }
-
-    if (name == "walletAddress") {
-      setWalletAddress(value)
-    }
-  }
-
   const submitLogin = (event) => {
     connectWallet(); 
     console.log("Submit login")
@@ -96,7 +64,7 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs }) => {
     setShowModal(false); 
   }
 
-  // console.log("Registered DAOs: ", registeredDAOs); 
+  console.log("Registered DAOs: ", registeredDAOs); 
 
 
   const handleShowModal = (title) => {
@@ -110,7 +78,7 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs }) => {
               type="text" 
               placeholder="Name" 
               name="Name"
-              onChange={handleRegister}
+              // onChange={handleRegister}
               />
           </div>
           <div>
@@ -119,7 +87,7 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs }) => {
               type="text" 
               placeholder="Wallet Address 1" 
               name='walletAddress1'
-              onChange={handleRegister}
+              // onChange={handleRegister}
               />
           </div>
           <div>
@@ -128,7 +96,7 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs }) => {
               type="text" 
               placeholder="Wallet Address 2" 
               name='walletAddress2'
-              onChange={handleRegister}
+              // onChange={handleRegister}
             />
           </div>
           <div>
@@ -137,7 +105,7 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs }) => {
               type="text"  
               placeholder="Description" 
               name='description'  
-              onChange={handleRegister}
+              // onChange={handleRegister}
             />
           </div>
           <button className="close-btn" onClick={submitRegister}>
@@ -154,7 +122,7 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs }) => {
               type="text" 
               placeholder="DAO name" 
               name="DaoName"
-              onChange={handleLogin}
+              // onChange={handleLogin}
               />
           </div>
           <div>
@@ -163,7 +131,7 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs }) => {
               type="text" 
               placeholder="Wallet Address" 
               name='walletAddress'
-              onChange={handleLogin}
+              // onChange={handleLogin}
               />
           </div>
 
