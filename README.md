@@ -30,8 +30,8 @@ Use Starter Kits build your DAPP right away!
 #### Quick Start
 
 ```javascripts
-npx create-react-app {YOUR_PROJECT_NAME} --template polygon-starter-kit
-cd {YOUR_PROJECT_NAME}
+npx create-react-app {Polygon Circular Community} --template polygon-starter-kit
+cd {P2C}
 npm run start 
 ```
 
@@ -79,11 +79,11 @@ Then a new folder named `{Polygon Circular Community}` will be created under cur
 	├── App.css
 	├── App.js
 	├── App.test.js
-	├── assets
-	│   ├── icon-devx.svg
-	│   ├── logo512.png
-	│   └── polygon-logo.svg
-	├── components
+	├── landing page
+	│   ├── index.html
+	│   ├── style.css
+	│   └── assets
+	├── src
 	│   ├── Contents
 	│   │   └── index.js
 	│   ├── Footer
@@ -94,7 +94,7 @@ Then a new folder named `{Polygon Circular Community}` will be created under cur
 	│   └── Wallet
 	│       ├── ConnectWallet.js
 	│       └── WalletInfo.js
-	├── contracts
+	├── public
 	│   └── Migrations.sol
 	├── hooks
 	│   └── index.js
