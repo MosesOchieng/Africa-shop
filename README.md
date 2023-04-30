@@ -23,7 +23,8 @@ FarmDAO Contract
 
 # Work in progress folder.
 
-This the project folder that implements aave on polygon for lending but has errors related to conflicts between solidity version and different aave libraries.We are on the procss of intergating Aave to our platform on polygon.
+This the project folder that implements aave on polygon for lending but has errors related to conflicts between solidity version and different aave libraries.We are on the procss of intergating Aave to our platform on polygon. The frontend are in the public folder.
+Integrations with Meta snaps in the smart contracts wiht frontend also.
 
 # Starter Kits
 
