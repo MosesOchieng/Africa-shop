@@ -1,16 +1,30 @@
 # Project Name: Polygon Circular Community
 
-Description:
+Link to Landing Page : https://polygon-circular-community.vercel.app/#
+
+# Description:
 Polygon Circular Community is a decentralized platform that offers loans and investment opportunities to farmers across Africa. It is built on the Polygon network, which is a high-performance, low-cost blockchain network. The platform allows farmers to access affordable loans and investments through the Aave protocol on Polygon and the 1inch fusion API. This project aims to address the challenges that farmers in Africa face in accessing finance for their agricultural activities.
 
-Technical Details:
+# Technical Details:
 The Polygon Circular Community platform is built using various blockchain technologies, including Ethereum, Aave, and 1inch fusion API. The platform uses smart contracts to facilitate the lending and borrowing of funds on the Aave protocol on Polygon. The smart contracts are written in Solidity, which is a programming language used to develop smart contracts on the Ethereum network. The 1inch fusion API is used to provide liquidity to the platform by aggregating liquidity from various decentralized exchanges on the Polygon network.
 
 The platform's front-end is developed using React, a popular JavaScript library used for building user interfaces. The platform's front-end interacts with the smart contracts on the Polygon network through the Web3.js library, which is a JavaScript library used to interact with Ethereum-based smart contracts. The front-end allows farmers to create a FarmDAO, which is a decentralized autonomous organization that enables them to access funding through the Aave protocol on Polygon. The front-end also allows investors to browse through the available FarmDAOs and invest in them.
 
+# Functions already working Smart Contracts functions
+
+FarmDAO Contract 
+1. addInvestment() - function that adds investment to the DAO created by the farmers 
+
+2. createDAO() - function that creates the DAOs 
+
+3. getAllDaos() - returns all the DAOs created
+
+4. getTotalInvestment() - returns the total invested amount in a particular DAO
+
 # Work in progress folder.
 
-This the project folder that implements aave on polygon for lending but has errors related to conflicts between solidity version and different aave libraries.
+This the project folder that implements aave on polygon for lending but has errors related to conflicts between solidity version and different aave libraries.We are on the procss of intergating Aave to our platform on polygon. The frontend are in the public folder.
+Integrations with Meta snaps in the smart contracts wiht frontend also.
 
 # Starter Kits
 
