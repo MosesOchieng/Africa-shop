@@ -4,17 +4,23 @@ import getProviderOrSigner from '../../contractInstance';
 import PopupModal from '../PopupModal/PopupModal';
 import { BigNumber, utils } from 'ethers';
 import connectWallet from '../ConnectWallet/ConnectWallet';
+import LoadingModal from '../Loading/Loading';
+import PopupDiv from '../PopupDiv/PopupDiv';
 
 function DaoMarketplace({ registeredDAOs, setRegisteredDAOs }) {
   const [showAll, setShowAll] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [modalTitle, setModalTitle] = useState("");
   const [modalContent, setModalContent] = useState(""); 
-  // const [investmentAmount, setInvestmentAmount] = useState(); 
+  const [loading, setLoading] = useState(false); 
+  const [loadingStatement, setLoadingStatement] = useState(""); 
+  const [showPopup, setShowPopup] = useState(false); 
+  const [success, setSuccess] = useState(false); 
+  const [error, setError] = useState(false); 
 
   const getRegisteredDAOs = async () => {
     const { farmDaoContract }  = await getProviderOrSigner(false); 
-    console.log("Fetching DAOs: ")
+    console.log("Fetching DAOs...")
     const allDAOs = await farmDaoContract.getAllDaos(); 
     
     console.log("DAOs created are: ", allDAOs)
@@ -23,6 +29,9 @@ function DaoMarketplace({ registeredDAOs, setRegisteredDAOs }) {
 
   const investDao = async (investAmt, id) => {
     console.log("Sending funds...")
+    setShowModal(false); 
+    setLoading(true); 
+    setLoadingStatement("Sending funds...")
     try {
       const { farmDaoContract } = await getProviderOrSigner(true); 
       const tx = await farmDaoContract.addInvestment(id, {
@@ -32,10 +41,26 @@ function DaoMarketplace({ registeredDAOs, setRegisteredDAOs }) {
 
       await tx.wait(); 
       console.log("Funds sent successfully!"); 
+      setLoading(false); 
+      console.log("Funds sent succesfully!")
+      
+      setSuccess(true); 
+      setShowPopup(true);
+      setTimeout(() => {
+        setShowPopup(false)
+        setSuccess(false)
+      }, 3000)
 
       getRegisteredDAOs(); 
     } catch(error) {
       console.error(error); 
+      setLoading(false);
+      setShowPopup(true);
+      setError(true) 
+      setTimeout(() => {
+        setShowPopup(false); 
+        setError(false)
+      }, 3000)
     }
   }
 
@@ -100,6 +125,18 @@ function DaoMarketplace({ registeredDAOs, setRegisteredDAOs }) {
   return (
 
     <div className='dao-container'>
+
+      <LoadingModal 
+        loading={loading}
+        loadingStatement={loadingStatement}
+      />
+
+      <PopupDiv 
+        showPopup={showPopup}
+        error={error}
+        succes={success}
+      />
+
       <h1 className='dao-heading'>DAO MARKETPLACE</h1>
        
       {registeredDAOs.length > 0 &&

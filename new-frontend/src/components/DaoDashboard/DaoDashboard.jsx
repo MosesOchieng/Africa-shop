@@ -1,21 +1,20 @@
 import React, { useState } from 'react';
-// import { useHistory } from 'react-router-dom';
 import './Dashboard.css'; 
 import PopupModal from '../PopupModal/PopupModal';
 import connectWallet from '../ConnectWallet/ConnectWallet';
 import getProviderOrSigner from '../../contractInstance';
+import LoadingModal from '../Loading/Loading';
+import PopupDiv from '../PopupDiv/PopupDiv';
 
 const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs, address, setAddress }) => {
   const [showModal, setShowModal] = useState(false);
   const [modalTitle, setModalTitle] = useState("");
   const [modalContent, setModalContent] = useState(""); 
-  const [name, setName] = useState(""); 
-  // const [walletAddress1, setWalletAddress1] = useState(""); 
-  // const [walletAddress2, setWalletAddress2] = useState(""); 
-  // const [description, setDescription] = useState(""); 
-  // const [daoName, setDaoName] = useState(""); 
-  const [walletAddress, setWalletAddress] = useState(""); 
-  // const history = useHistory();
+  const [loading, setLoading] = useState(false); 
+  const [loadingStatement, setLoadingStatement] = useState(""); 
+  const [showPopup, setShowPopup] = useState(false); 
+  const [success, setSuccess] = useState(false); 
+  const [error, setError] = useState(false); 
 
   let daoName;  
   let walletAddress1; 
@@ -31,22 +30,44 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs, address, setAddress }
   }
 
   const submitRegister = async (event) => {
+    try {
+      const { farmDaoContract } = await getProviderOrSigner(true); 
 
-    const { farmDaoContract } = await getProviderOrSigner(true); 
-    console.log("FarmDAO contract: ", farmDaoContract); 
+      console.log("Creating the DAO..."); 
+      setShowModal(false); 
+      setLoading(true); 
+      setLoadingStatement("Creating the DAO...")
+      const tx = await farmDaoContract.createDao(
+        walletAddress1, 
+        walletAddress2, 
+        description, 
+        daoName, 
+        { gasLimit: 1000000 }
+      )
+      console.log("Adding DAO...")
+      setLoadingStatement("Adding DAO...")
 
-    console.log("Creating the DAO..."); 
-    const tx = await farmDaoContract.createDao(
-      walletAddress1, 
-      walletAddress2, 
-      description, 
-      daoName, 
-      { gasLimit: 1000000 }
-    )
-    console.log("Adding DAO...")
+      await tx.wait(); 
+      setLoading(false); 
+      console.log("DAO created succesfully!")
 
-    await tx.wait(); 
-    console.log("DAO created succesfully!")
+      setShowPopup(true);
+      setSuccess(true) 
+      setTimeout(() => {
+        setShowPopup(false)
+        setSuccess(false)
+      }, 3000)
+
+    } catch (error) {
+      console.error(error); 
+
+      setShowPopup(true);
+      setError(true) 
+      setTimeout(() => {
+        setShowPopup(false); 
+        setError(false)
+      }, 3000)
+    }
 
   }
 
@@ -142,6 +163,18 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs, address, setAddress }
 
   return (
     <div className='dao-container'>
+
+      <LoadingModal 
+        loading={loading}
+        loadingStatement={loadingStatement}
+      />
+
+      <PopupDiv 
+        showPopup={showPopup}
+        error={error}
+        succes={success}
+      />
+
       <h1 className='dao-heading'>DAO DASHBOARD</h1>
        
       <div className='description-container'>
@@ -157,8 +190,6 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs, address, setAddress }
       </div>
 
       <div>
-        {/* <button className='gradient-btn v2' onClick={() => handleRegister(true, false)}>Register DAO</button>
-        <button className='gradient-btn v2' onClick={() => handleLogin(false, true)}>Log in DAO</button> */}
         <button onClick={() => { handleShowModal("REGISTER", "This is the Register Modal Content"); connectWallet() }}>Register DAO</button>
         <button onClick={() => { handleShowModal("LOG IN", "This is the Log In Modal Content"); connectWallet() }}>Log in DAO</button>
       </div>
