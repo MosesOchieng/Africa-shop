@@ -24,13 +24,6 @@ contract Marketplace {
         require(msg.value > 0, "Investment must be greater than 0");
         require(currentFunding + msg.value <= fundingGoal, "Investment exceeds funding goal");
 
-        // address daoAddress = farmersDAO.getDaoAddress(daoID);
-        // require(daoAddress != address(0), "Invalid DAO ID");
-
-        // (bool success,) = daoAddress.call{value: msg.value}("");
-        // Dao dao = Dao(daoAddress);
-        // require(success, "Investment failed");
-
         farmersDAO.addInvestment{value: msg.value}(daoID);
 
         if (investments[msg.sender] == 0) {

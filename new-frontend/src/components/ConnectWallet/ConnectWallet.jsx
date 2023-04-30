@@ -18,11 +18,6 @@
       console.log("Chain ID is: ", chainId); 
 
       return account; 
-
-      if (chainId != 5){
-        // setGoerli(false); 
-        console.log("Goerli not present!")
-      }
   
     } catch (error) {
       console.error(error); 
