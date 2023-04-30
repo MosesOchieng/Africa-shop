@@ -20,24 +20,16 @@ function App() {
   
   return (
     <div className="App">
-      <Router>
-        <Routes>
-          <Route path='/dao-dashboard' element={
             <DaoDashboard 
               registeredDAOs={registeredDAOs}
               setRegisteredDAOs={setRegisteredDAOs}
               address={address}
               setAddress={setAddress}
             /> 
-          }/>
-          <Route path="/dao-marketplace" element={
             <DaoMarketplace  
               registeredDAOs={registeredDAOs}
               setRegisteredDAOs={setRegisteredDAOs}
             />
-          }/>
-        </Routes>
-      </Router> 
     </div>
   )
 }

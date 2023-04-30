@@ -124,7 +124,7 @@ function DaoMarketplace({ registeredDAOs, setRegisteredDAOs }) {
 
   return (
 
-    <div className='dao-container'>
+    <div className='dao-container' id="daomarketplace">
 
       <LoadingModal 
         loading={loading}

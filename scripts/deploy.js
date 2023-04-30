@@ -33,3 +33,9 @@ main()
 
 // FarmDAO contract address:  0xf1A7FB954B9ab4AD9Ab9F33040cDD55A5B59BcE0
 // Marketplace contract address:  0x2F3fB598dbECbA243c573A700a9a093d4c1dFAbF
+
+// FarmDAO contract address:  0xd2CFDFcB3E6F99B01d78A517Df8fB13b07dcaE69
+// Marketplace contract address:  0xA41F728Bc3A866a960480014F372CE60d3F59DCf
+
+// FarmDAO contract address:  0x0D8c3Cc50DFE68e92b9d18fdf2d1aEeb58000A19
+// Marketplace contract address:  0x8A5516666FA751600105EA9384d6BC92C461a32D

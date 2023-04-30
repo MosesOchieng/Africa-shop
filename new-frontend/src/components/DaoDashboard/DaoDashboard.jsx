@@ -162,7 +162,7 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs, address, setAddress }
   };
 
   return (
-    <div className='dao-container'>
+    <div className='dao-container' id="daodashboard">
 
       <LoadingModal 
         loading={loading}
@@ -191,7 +191,7 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs, address, setAddress }
 
       <div>
         <button onClick={() => { handleShowModal("REGISTER", "This is the Register Modal Content"); connectWallet() }}>Register DAO</button>
-        <button onClick={() => { handleShowModal("LOG IN", "This is the Log In Modal Content"); connectWallet() }}>Log in DAO</button>
+        <button onClick={() => { handleShowModal("LOG IN", "This is the Log In Modal Content"); connectWallet() }}>Login DAO</button>
       </div>
 
       <PopupModal 

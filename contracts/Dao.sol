@@ -42,7 +42,7 @@ contract FarmDAO {
     // Functions
     function addInvestment(uint daoId) public payable {
         require(msg.value >= minimumInvestment, "Investment amount is below the minimum required.");
-        require(investments[msg.sender] == 0, "Investor has already contributed to the fund.");
+        // require(investments[msg.sender] == 0, "Investor has already contributed to the fund.");
         require(msg.sender != farmer1 && msg.sender != farmer2, "Farmers cannot invest in the fund.");
         
         Dao storage dao = daos[daoId];
