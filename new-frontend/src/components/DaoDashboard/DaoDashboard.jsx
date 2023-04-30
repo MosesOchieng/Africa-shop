@@ -67,10 +67,10 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs, address, setAddress }
 
     console.log("Creating the DAO..."); 
     const tx = await farmDaoContract.createDao(
-      "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266", 
-      "0x70997970C51812dc3A010C7d01b50e0d17dc79C8", 
-      "PawPaw plant farmers", 
-      "Milenge farmers", 
+      "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb9244457", 
+      "0x70997970C51812dc3A010C7d01b50e0d17dc344354", 
+      "Maize plant farmers", 
+      "Sagini farmers", 
       { gasLimit: 1000000 }
     )
     console.log("Adding DAO...")

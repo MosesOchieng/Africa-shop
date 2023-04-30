@@ -6,6 +6,12 @@ import './App.css'
 import DaoDashboard from './components/DaoDashboard/DaoDashboard'
 import ConnectWallet from './components/ConnectWallet/ConnectWallet'
 import DaoMarketplace from './components/DaoMarketplace/DaoMarketplace'
+import { 
+  BrowserRouter as Router,  
+  Route,
+  Routes,
+  // Redirect
+ } from 'react-router-dom';
 
 
 function App() {
@@ -14,16 +20,24 @@ function App() {
   
   return (
     <div className="App">
-      <DaoDashboard 
-        registeredDAOs={registeredDAOs}
-        setRegisteredDAOs={setRegisteredDAOs}
-        address={address}
-        setAddress={setAddress}
-      /> 
-      <DaoMarketplace 
-        registeredDAOs={registeredDAOs}
-        setRegisteredDAOs={setRegisteredDAOs}
-      /> 
+      <Router>
+        <Routes>
+          <Route path='/dao-dashboard' element={
+            <DaoDashboard 
+              registeredDAOs={registeredDAOs}
+              setRegisteredDAOs={setRegisteredDAOs}
+              address={address}
+              setAddress={setAddress}
+            /> 
+          }/>
+          <Route path="/dao-marketplace" element={
+            <DaoMarketplace  
+              registeredDAOs={registeredDAOs}
+              setRegisteredDAOs={setRegisteredDAOs}
+            />
+          }/>
+        </Routes>
+      </Router> 
     </div>
   )
 }

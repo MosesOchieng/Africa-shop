@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import './DaoMarketplace.css';
 import getProviderOrSigner from '../../contractInstance';
+import PopupModal from '../PopupModal/PopupModal';
+import { BigNumber, utils } from 'ethers';
 
 function DaoMarketplace({ registeredDAOs, setRegisteredDAOs }) {
   const [showAll, setShowAll] = useState(true);
+  const [showModal, setShowModal] = useState(false);
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalContent, setModalContent] = useState(""); 
+  // const [investmentAmount, setInvestmentAmount] = useState(); 
 
   const getRegisteredDAOs = async () => {
     const { farmDaoContract }  = await getProviderOrSigner(false); 
@@ -14,15 +20,14 @@ function DaoMarketplace({ registeredDAOs, setRegisteredDAOs }) {
     setRegisteredDAOs(allDAOs); 
   }
 
-  const investDao = async (id) => {
+  const investDao = async (investAmt, id) => {
+    console.log("Sending funds...")
     try {
-      const ethAmount = 0.0001; 
       const { farmDaoContract } = await getProviderOrSigner(true); 
-      const tx = await farmDaoContract.addInvestment(1, {
-        value: utils.parseEther(ethAmount.toString()),
+      const tx = await farmDaoContract.addInvestment(id, {
+        value: utils.parseEther(investAmt.toString()),
         gasLimit: 100000,
       }); 
-      console.log("Sending funds..."); 
 
       await tx.wait(); 
       console.log("Funds sent successfully!"); 
@@ -32,43 +37,60 @@ function DaoMarketplace({ registeredDAOs, setRegisteredDAOs }) {
       console.error(error); 
     }
   }
-  
-  // const items = [
-  //   {
-  //     title: "Dao 1",
-  //     description: "Muranga Dao are well known for their growing horticulture crops currently exporting 1 tonne per quarter.",
-  //     status: "Approval Ongoing",
-  //   },
-  //   {
-  //     title: "Dao 2",
-  //     description: "Umoja Dairy Dao in Kakamega are looking for support to expand on a borehole and cattle dip facilities .",
-  //     status: "Approval Ongoing",
-  //   },
-  //   {
-  //     title: "Dao 3",
-  //     description: "Glory women chama are looking for investors to grow their greenhouse Dao model in Kenya.",
-  //     status: "Active",
-  //   },
-  //   {
-  //     title: "Dao 4",
-  //     description: "Kisumu Dairy Cooperative expanding access to livestock feed in the county through low cost hydroponic systems.",
-  //     status: "Approval Ongoing",
-  //   },
-  //   {
-  //     title: "Dao 5",
-  //     description: "Grower Farming Limited looking for like minded partners to increase access to equipment in Kenya.",
-  //     status: "Active",
-  //   },
-  //   {
-  //     title: "Dao 6",
-  //     description: "Coffee Farmers Board target to export 5tonnes annually.",
-  //     status: "Active",
-  //   },
-  // ];
 
-  // const visibleItems = registeredDAOs.filter((item, index) => {
-  //   return showAll ? true : index === 0;
-  // });
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  const handleShowModal = async (title, itemId) => {
+    // console.log("Connecting wallet...")
+    // const account =  await connectWallet(); 
+    // setAddress(account); 
+    let investmentAmount; 
+
+    setModalTitle(title);
+    if (title === "LOAN") {
+      console.log("LOANNNNN")
+      setModalContent(
+        <div className='content-container'>
+          <div>
+            <label>Amount: </label>
+            <input 
+              type="number" 
+              placeholder="Enter amount to loan" 
+              name="Name"
+              // onChange={handleRegister}
+              />
+          </div>
+          
+          <button className="close-btn" onClick={ () => console.log("loan dao")}>
+            LOAN
+          </button> 
+        </div>
+      );
+    } else if (title === "INVEST") {
+      setModalContent(
+        <div className="content-container">
+          <div>
+            <label>Amount: </label>
+            <input 
+              type="number" 
+              placeholder="Enter amount to invest" 
+              name="DaoName"
+              onChange={ (e) => {
+                investmentAmount = e.target.value;  
+              }}
+              />
+          </div>
+
+          <button className="close-btn" onClick={ () => investDao(investmentAmount, parseInt(itemId)) }>
+            INVEST
+          </button>
+        </div>
+      );
+    }
+    setShowModal(true);
+  }
 
   useEffect(() => {
     getRegisteredDAOs(); 
@@ -76,9 +98,9 @@ function DaoMarketplace({ registeredDAOs, setRegisteredDAOs }) {
 
   return (
 
-    <div>
+    <div className='dao-container'>
       <h1 className='dao-heading'>DAO MARKETPLACE</h1>
-
+       
       {registeredDAOs.length > 0 &&
         <div className="card-container">
           {registeredDAOs.map((item, index) => (
@@ -87,16 +109,24 @@ function DaoMarketplace({ registeredDAOs, setRegisteredDAOs }) {
                 <h2>{item.name}</h2>
                 <div>Farmer Address 1: {item.address1.slice(0,6)}...{item.address1.slice(38,42)}<br/>Farmer Address 2: {item.address2.slice(0,6)}...{item.address2.slice(38,42)}</div>
                 <p>DESCRIPTION: {item.description}</p>
-                <p>FUNDS INVESTED: {item.amountInvested.toString()}</p>
+                <p>FUNDS INVESTED: {utils.formatEther(item.amountInvested)} ETH</p>
               </div>
               <div className="card-buttons">
-                <button onClick={() => handleShowModal("LOANS", "Click Here for Loans")}>Loans DAO</button>
-                <button onClick={() => handleShowModal("INVEST", "Click Here to Invest")}>Invest DAO</button>
+                <button onClick={() => handleShowModal("LOAN", item.id.toString())}>Loan</button>
+                <button onClick={() => handleShowModal("INVEST", item.id.toString())}>Invest</button>
               </div>
             </div>
           ))}
         </div>
       }
+
+      <PopupModal 
+        handleShowModal={handleShowModal}
+        handleCloseModal={handleCloseModal}
+        showModal={showModal}
+        modalTitle={modalTitle}
+        modalContent={modalContent}
+      />
     </div>
   );
 }
