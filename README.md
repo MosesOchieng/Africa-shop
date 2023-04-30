@@ -87,8 +87,8 @@ Then a new folder named `{Polygon Circular Community}` will be created under cur
 ├── .config.hardhat.js
 ├── Contracts
 │   ├── Dao.sol
+│   ├── Dex.sol
 │   ├── Market.sol
-│ 
 └── New-Frontend
 	├── App.css
 	├── App.js
