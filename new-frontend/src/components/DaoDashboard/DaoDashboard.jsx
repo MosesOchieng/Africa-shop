@@ -10,12 +10,17 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs, address, setAddress }
   const [modalTitle, setModalTitle] = useState("");
   const [modalContent, setModalContent] = useState(""); 
   const [name, setName] = useState(""); 
-  const [walletAddress1, setWalletAddress1] = useState(""); 
-  const [walletAddress2, setWalletAddress2] = useState(""); 
-  const [description, setDescription] = useState(""); 
-  const [daoName, setDaoName] = useState(""); 
+  // const [walletAddress1, setWalletAddress1] = useState(""); 
+  // const [walletAddress2, setWalletAddress2] = useState(""); 
+  // const [description, setDescription] = useState(""); 
+  // const [daoName, setDaoName] = useState(""); 
   const [walletAddress, setWalletAddress] = useState(""); 
   // const history = useHistory();
+
+  let daoName;  
+  let walletAddress1; 
+  let walletAddress2; 
+  let description; 
 
   const handleCloseModal = () => {
     setShowModal(false);
@@ -26,51 +31,16 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs, address, setAddress }
   }
 
   const submitRegister = async (event) => {
-    // const { name, value } = event.target; 
-    // let daoName; 
-    // let walletAddressOne; 
-    // let walletAddressTwo; 
-    // let description; 
-    
-    // if (name == "Name") {
-    //   daoName = value; 
-    //   console.log("Name is: ", value); 
-    //   console.log("Name2 is: ", daoName); 
-    // }
-
-    // if (name == "walletAddress1") {
-    //   walletAddressOne = value; 
-    // }
-
-    // if (name == "walletAddress2") {
-    //   walletAddressTwo = value; 
-    // }
-
-    // if (name == "description") {
-    //   description = value; 
-    //   console.log("Description is: ", value); 
-    //   console.log("Description 2 is: ", description); 
-    // } 
-
-    // const newDao = {
-    //   name: daoName, 
-    //   walletAddressOne: walletAddress1, 
-    //   walletAddressTwo: walletAddress2, 
-    //   description: description
-    // }
-
-    // setRegisteredDAOs((prevState) => [...prevState, newDao])
-    // setShowModal(false); 
 
     const { farmDaoContract } = await getProviderOrSigner(true); 
     console.log("FarmDAO contract: ", farmDaoContract); 
 
     console.log("Creating the DAO..."); 
     const tx = await farmDaoContract.createDao(
-      "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb9244457", 
-      "0x70997970C51812dc3A010C7d01b50e0d17dc344354", 
-      "Maize plant farmers", 
-      "Sagini farmers", 
+      walletAddress1, 
+      walletAddress2, 
+      description, 
+      daoName, 
       { gasLimit: 1000000 }
     )
     console.log("Adding DAO...")
@@ -79,8 +49,6 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs, address, setAddress }
     console.log("DAO created succesfully!")
 
   }
-
-  console.log("Registered DAOs: ", registeredDAOs); 
 
 
   const handleShowModal = async (title) => {
@@ -98,7 +66,9 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs, address, setAddress }
               type="text" 
               placeholder="Name" 
               name="Name"
-              // onChange={handleRegister}
+              onChange={ (e) => {
+                daoName = e.target.value
+              }}
               />
           </div>
           <div>
@@ -107,7 +77,9 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs, address, setAddress }
               type="text" 
               placeholder="Wallet Address 1" 
               name='walletAddress1'
-              // onChange={handleRegister}
+              onChange={ (e) => {
+                walletAddress1 = e.target.value
+              }}
               />
           </div>
           <div>
@@ -116,7 +88,9 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs, address, setAddress }
               type="text" 
               placeholder="Wallet Address 2" 
               name='walletAddress2'
-              // onChange={handleRegister}
+              onChange={ (e) => {
+                walletAddress2 = e.target.value
+              }}
             />
           </div>
           <div>
@@ -125,7 +99,9 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs, address, setAddress }
               type="text"  
               placeholder="Description" 
               name='description'  
-              // onChange={handleRegister}
+              onChange={ (e) => {
+                description = e.target.value
+              }}
             />
           </div>
           <button className="close-btn" onClick={submitRegister}>

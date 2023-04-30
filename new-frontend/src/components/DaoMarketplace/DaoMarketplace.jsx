@@ -3,6 +3,7 @@ import './DaoMarketplace.css';
 import getProviderOrSigner from '../../contractInstance';
 import PopupModal from '../PopupModal/PopupModal';
 import { BigNumber, utils } from 'ethers';
+import connectWallet from '../ConnectWallet/ConnectWallet';
 
 function DaoMarketplace({ registeredDAOs, setRegisteredDAOs }) {
   const [showAll, setShowAll] = useState(true);
@@ -43,9 +44,9 @@ function DaoMarketplace({ registeredDAOs, setRegisteredDAOs }) {
   };
 
   const handleShowModal = async (title, itemId) => {
-    // console.log("Connecting wallet...")
-    // const account =  await connectWallet(); 
-    // setAddress(account); 
+    console.log("Connecting wallet...")
+    const account =  await connectWallet(); 
+    
     let investmentAmount; 
 
     setModalTitle(title);
