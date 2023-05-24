@@ -6,6 +6,7 @@ import './App.css'
 import DaoDashboard from './components/DaoDashboard/DaoDashboard'
 import ConnectWallet from './components/ConnectWallet/ConnectWallet'
 import DaoMarketplace from './components/DaoMarketplace/DaoMarketplace'
+import Login from './src/components/LoginMini/loginmodule'
 import { 
   BrowserRouter as Router,  
   Route,
@@ -36,6 +37,9 @@ function App() {
               setRegisteredDAOs={setRegisteredDAOs}
             />
           }/>
+          <Routes>
+            <Login/>
+          </Routes>
         </Routes>
       </Router> 
     </div>
