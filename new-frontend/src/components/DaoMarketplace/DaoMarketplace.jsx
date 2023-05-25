@@ -39,6 +39,12 @@ function DaoMarketplace({ registeredDAOs, setRegisteredDAOs }) {
     // })
   }
 
+  const getPriceConsumer = async () => {
+    const { priceConsumer } = await getProviderOrSigner(false); 
+    const price = await priceConsumer.getLatestPrice(); 
+    console.log("Latest price is: ", price.toString())
+  }
+
   const investDao = async (investAmt, id) => {
     console.log("Sending funds...")
     setShowModal(false); 
@@ -132,7 +138,7 @@ function DaoMarketplace({ registeredDAOs, setRegisteredDAOs }) {
 
   useEffect(() => {
     getRegisteredDAOs(); 
-    getPriceFeed(); 
+    getPriceConsumer(); 
   }, [])
 
   return (
