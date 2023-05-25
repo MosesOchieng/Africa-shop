@@ -27,6 +27,18 @@ function DaoMarketplace({ registeredDAOs, setRegisteredDAOs }) {
     setRegisteredDAOs(allDAOs); 
   }
 
+  const getPriceFeed = async () => {
+    const { priceFeed } = await getProviderOrSigner(false);
+    console.log("Getting round data..."); 
+    const roundData = await priceFeed.latestRoundData(); 
+    console.log("Main round data: ", roundData); 
+    console.log("Round data: ", utils.formatEther(roundData[0])); 
+    // priceFeed.latestRoundData().then((roundData) => {
+    //   // Do something with roundData
+    //   console.log("Latest Round Data", roundData); 
+    // })
+  }
+
   const investDao = async (investAmt, id) => {
     console.log("Sending funds...")
     setShowModal(false); 
@@ -120,6 +132,7 @@ function DaoMarketplace({ registeredDAOs, setRegisteredDAOs }) {
 
   useEffect(() => {
     getRegisteredDAOs(); 
+    getPriceFeed(); 
   }, [])
 
   return (
