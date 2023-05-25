@@ -5,6 +5,8 @@ import connectWallet from '../ConnectWallet/ConnectWallet';
 import getProviderOrSigner from '../../contractInstance';
 import LoadingModal from '../Loading/Loading';
 import PopupDiv from '../PopupDiv/PopupDiv';
+import DAO from '../DAO/DAO';
+import { ethers } from 'ethers';
 
 const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs, address, setAddress }) => {
   const [showModal, setShowModal] = useState(false);
@@ -21,12 +23,42 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs, address, setAddress }
   let walletAddress2; 
   let description; 
 
+  // For login
+  let loginName; 
+  let loginAddress; 
+
+
   const handleCloseModal = () => {
     setShowModal(false);
   };
 
-  const submitLogin = (event) => {
-    console.log("Submit login")
+  const submitLogin = () => {
+    console.log("Login Name: ", loginName); 
+    console.log("Login Address: ", loginAddress); 
+  }
+
+  const handleLogin = async () => {
+    const { ethereum } = window; 
+    const accounts = await ethereum.request({ method: "eth_requestAccounts" }); 
+    const account = accounts[0]; 
+    console.log("Connected account is: ", account); 
+    console.log("Registered DAO account: ", registeredDAOs[0][0])
+
+    for (let i = 0; i < registeredDAOs.length; i++){
+      const storedAddress = registeredDAOs[i][0];
+
+      // Converting all addresses to lower case
+      const lowercaseAccount = account.toLowerCase();
+      const lowercaseStoredAddress = storedAddress.toLowerCase();
+
+      if(lowercaseAccount == lowercaseStoredAddress){
+        // Open up the modal containing the DAO registered with the wallet
+        console.log(`Connected account ${account} matches the address ${registeredDAOs[i][0]}`)
+      } else {
+        console.log("Connected account does not match")
+      }
+    }
+
   }
 
   const submitRegister = async (event) => {
@@ -138,8 +170,10 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs, address, setAddress }
             <input 
               type="text" 
               placeholder="DAO name" 
-              name="DaoName"
-              // onChange={handleLogin}
+              name="loginName"
+              onChange={ (e) => {
+                loginName = e.target.value
+              }}
               />
           </div>
           <div>
@@ -147,8 +181,10 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs, address, setAddress }
             <input 
               type="text" 
               placeholder="Wallet Address" 
-              name='walletAddress'
-              // onChange={handleLogin}
+              name='loginAddress'
+              onChange={ (e) => {
+                loginAddress = e.target.value
+              }}
               />
           </div>
 
@@ -163,6 +199,8 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs, address, setAddress }
 
   return (
     <div className='dao-container' id="daodashboard">
+
+      {/* <DAO /> */}
 
       <LoadingModal 
         loading={loading}
@@ -191,7 +229,7 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs, address, setAddress }
 
       <div>
         <button onClick={() => { handleShowModal("REGISTER", "This is the Register Modal Content"); connectWallet() }}>Register DAO</button>
-        <button onClick={() => { handleShowModal("LOG IN", "This is the Log In Modal Content"); connectWallet() }}>Login DAO</button>
+        <button onClick={() => { handleLogin(); connectWallet() }}>Login DAO</button>
       </div>
 
       <PopupModal 

@@ -14,8 +14,8 @@
       const account = accounts[0]; 
       const chainId = await ethereum.request({ method: "eth_chainId" });  
 
-      console.log("Account is: ", account); 
-      console.log("Chain ID is: ", chainId); 
+      // console.log("Account is: ", account); 
+      // console.log("Chain ID is: ", chainId); 
 
       return account; 
   
