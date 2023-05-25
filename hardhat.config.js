@@ -9,10 +9,10 @@ const { ALCHEMY_API_KEY, PRIVATE_KEY } = process.env;
 
 module.exports = {
   solidity: "0.8.19",
-  defaultNetwork: "polygon_mumbai",
+  defaultNetwork: "sepolia",
   networks: {
     hardhat: {},
-    polygon_mumbai: {
+    sepolia: {
       url: ALCHEMY_API_KEY,
       accounts: [PRIVATE_KEY]
     }
