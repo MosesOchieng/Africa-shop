@@ -206,6 +206,7 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs, address, setAddress }
         showDao && (
           <DAO 
             daoContent={daoContent}
+            setShowDao={setShowDao}
           />
         )
       }

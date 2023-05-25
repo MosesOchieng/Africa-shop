@@ -4,7 +4,7 @@ import { utils } from 'ethers';
 import './DAO.css'; // Import the CSS file for styling
 
 
-const DAO = ({ daoContent }) => {
+const DAO = ({ daoContent, setShowDao }) => {
 
     console.log("Dao content is: ", daoContent)
 
@@ -14,26 +14,42 @@ const DAO = ({ daoContent }) => {
 
     return (
         <div className="login-container">
-            <form className="login-form">
+
+            <div className="login-form">
                 <h2>{daoContent.name}</h2>
                 <div className="description">
                     <p>{daoContent.description}</p>
                 </div>
                 <div className="invested-form">
-                    <p className='descriptionArea' style={{ width: "150px", height: "20px" }}>Total Amount Invested</p>
-                    <p className='descriptionArea' style={{ width: "150px", height: "20px" }}>{utils.formatEther(daoContent.amountInvested)}</p>
+                    <p className='descriptionArea' >Total Amount Invested</p>
+                    <p className='descriptionArea' >{utils.formatEther(daoContent.amountInvested)} USD</p>
                 </div>
                 <div className="invested-form">
-                    <p className='descriptionArea' style={{ width: "150px", height: "20px" }}>Investors</p>
-                    <div  className='descriptionArea'>
-                        <p  style={{ width: "150px", height: "20px" }}>0x2379...4a56</p>
-                        <p>0x2379...4a56</p>
-                        <p>0x2379...4a56</p>
+                    <div>
+                        <p className='descriptionArea' >Investors</p>
+                        <div  className='descriptionArea'>
+                            <p>0x2379...4a56</p>
+                            <p>0x2379...4a56</p>
+                            <p>0x2379...4a56</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <p className='descriptionArea' >Owners</p>
+                        <div  className='descriptionArea'>
+                            <p>0x2379...4a56</p>
+                            <p>0x2379...4a56</p>
+                        </div>
                     </div>
 
                 </div>
-                <button className="withdraw-button">Withdraw Funds</button>
-            </form>
+
+                <div>
+                    <button className="withdraw-button">Withdraw Funds</button>
+                    <button className="exit-button" onClick={ () => setShowDao(false) }>Exit</button>
+                </div>
+            </div>
+
         </div>
     );
 };
