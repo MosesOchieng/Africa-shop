@@ -17,6 +17,8 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs, address, setAddress }
   const [showPopup, setShowPopup] = useState(false); 
   const [success, setSuccess] = useState(false); 
   const [error, setError] = useState(false); 
+  const [showDao, setShowDao] = useState(false); 
+  const [daoContent, setDaoContent] = useState(); 
 
   let daoName;  
   let walletAddress1; 
@@ -41,8 +43,6 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs, address, setAddress }
     const { ethereum } = window; 
     const accounts = await ethereum.request({ method: "eth_requestAccounts" }); 
     const account = accounts[0]; 
-    console.log("Connected account is: ", account); 
-    console.log("Registered DAO account: ", registeredDAOs[0][0])
 
     for (let i = 0; i < registeredDAOs.length; i++){
       const storedAddress = registeredDAOs[i][0];
@@ -53,6 +53,8 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs, address, setAddress }
 
       if(lowercaseAccount == lowercaseStoredAddress){
         // Open up the modal containing the DAO registered with the wallet
+        setShowDao(true); 
+        setDaoContent(registeredDAOs[i]); 
         console.log(`Connected account ${account} matches the address ${registeredDAOs[i][0]}`)
       } else {
         console.log("Connected account does not match")
@@ -200,8 +202,13 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs, address, setAddress }
   return (
     <div className='dao-container' id="daodashboard">
 
-      {/* <DAO /> */}
-
+      {
+        showDao && (
+          <DAO 
+            daoContent={daoContent}
+          />
+        )
+      }
       <LoadingModal 
         loading={loading}
         loadingStatement={loadingStatement}

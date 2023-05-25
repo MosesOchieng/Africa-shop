@@ -163,7 +163,7 @@ function DaoMarketplace({ registeredDAOs, setRegisteredDAOs }) {
           {registeredDAOs.map((item, index) => (
             <div key={index} className="card">
               <div className="card-info">
-                <h2>{item.name}</h2>
+                <h3>{item.name}</h3>
                 <div>Farmer Address 1: {item.address1.slice(0,6)}...{item.address1.slice(38,42)}<br/>Farmer Address 2: {item.address2.slice(0,6)}...{item.address2.slice(38,42)}</div>
                 <p>DESCRIPTION: {item.description}</p>
                 <p>FUNDS INVESTED: {utils.formatEther(item.amountInvested)} ETH</p>

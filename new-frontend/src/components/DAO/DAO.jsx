@@ -1,9 +1,12 @@
 
 import React from 'react';
+import { utils } from 'ethers';
 import './DAO.css'; // Import the CSS file for styling
 
 
-const DAO = () => {
+const DAO = ({ daoContent }) => {
+
+    console.log("Dao content is: ", daoContent)
 
     const descriptionText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sagittis dapibus lectus, \
     ac fermentum erat commodo non. Vestibulum a mattis purus. Sed lacinia erat et mi mollis, \
@@ -12,13 +15,13 @@ const DAO = () => {
     return (
         <div className="login-container">
             <form className="login-form">
-                <h2>DAO NAME</h2>
+                <h2>{daoContent.name}</h2>
                 <div className="description">
-                    <p>{descriptionText}</p>
+                    <p>{daoContent.description}</p>
                 </div>
                 <div className="invested-form">
                     <p className='descriptionArea' style={{ width: "150px", height: "20px" }}>Total Amount Invested</p>
-                    <p className='descriptionArea' style={{ width: "150px", height: "20px" }}>KSHS</p>
+                    <p className='descriptionArea' style={{ width: "150px", height: "20px" }}>{utils.formatEther(daoContent.amountInvested)}</p>
                 </div>
                 <div className="invested-form">
                     <p className='descriptionArea' style={{ width: "150px", height: "20px" }}>Investors</p>
