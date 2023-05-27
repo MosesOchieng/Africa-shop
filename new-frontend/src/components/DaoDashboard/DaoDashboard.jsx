@@ -57,7 +57,8 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs, address, setAddress }
         setDaoContent(registeredDAOs[i]); 
         console.log(`Connected account ${account} matches the address ${registeredDAOs[i][0]}`)
       } else {
-        console.log("Connected account does not match")
+        window.alert("Kindly register your DAO to get started!"); 
+        console.log("Connected account does not match"); 
       }
     }
 

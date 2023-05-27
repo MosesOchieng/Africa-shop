@@ -26,6 +26,7 @@ function App() {
               address={address}
               setAddress={setAddress}
             /> 
+            
             <DaoMarketplace  
               registeredDAOs={registeredDAOs}
               setRegisteredDAOs={setRegisteredDAOs}

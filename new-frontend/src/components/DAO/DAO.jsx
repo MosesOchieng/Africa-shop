@@ -8,10 +8,6 @@ const DAO = ({ daoContent, setShowDao }) => {
 
     console.log("Dao content is: ", daoContent)
 
-    const descriptionText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sagittis dapibus lectus, \
-    ac fermentum erat commodo non. Vestibulum a mattis purus. Sed lacinia erat et mi mollis, \
-    sed aliquet ligula elementum. Vivamus pellentesque fringilla interdum.";
-
     return (
         <div className="login-container">
 
@@ -27,18 +23,18 @@ const DAO = ({ daoContent, setShowDao }) => {
                 <div className="invested-form">
                     <div>
                         <p className='descriptionArea' >Investors</p>
-                        <div  className='descriptionArea'>
-                            <p>0x2379...4a56</p>
-                            <p>0x2379...4a56</p>
-                            <p>0x2379...4a56</p>
+                        <div  className='descriptionArZea'>
+                            {daoContent.investors.map((investor) => {
+                                <a href="https://sepolia.etherscan.io/" target='_blank'>{investor.slice(0,6)}...{investor.slice(38,42)}</a>
+                            })}
                         </div>
                     </div>
 
                     <div>
                         <p className='descriptionArea' >Owners</p>
                         <div  className='descriptionArea'>
-                            <p>0x2379...4a56</p>
-                            <p>0x2379...4a56</p>
+                            <a href="https://sepolia.etherscan.io/" target='_blank'>{daoContent.address1.slice(0,6)}...{daoContent.address1.slice(38,42)}</a>
+                            <a href="https://sepolia.etherscan.io/" target='_blank'>{daoContent.address2.slice(0,6)}...{daoContent.address2.slice(38,42)}</a>
                         </div>
                     </div>
 
