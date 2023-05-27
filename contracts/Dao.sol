@@ -24,6 +24,7 @@ contract FarmDAO {
         string name; 
         uint id; 
         uint amountInvested; 
+        address[] investors; 
     }
 
     // Events
@@ -41,11 +42,11 @@ contract FarmDAO {
 
     // Functions
     function addInvestment(uint daoId) public payable {
-        require(msg.value >= minimumInvestment, "Investment amount is below the minimum required.");
-        require(msg.sender != farmer1 && msg.sender != farmer2, "Farmers cannot invest in the fund.");
-        
+        // require(msg.value >= minimumInvestment, "Investment amount is below the minimum required.");
         Dao storage dao = daos[daoId];
+        require(msg.sender != dao.address1 && msg.sender != dao.address2, "Only addresses that haven't joined the DAO can invest.");
         dao.amountInvested += msg.value;
+        dao.investors.push(msg.sender); 
 
         investments[msg.sender] = msg.value;
         totalInvestment += msg.value;
@@ -54,6 +55,7 @@ contract FarmDAO {
     }
 
     function createDao(address _farmer1, address _farmer2, string memory _description, string memory _name) public {
+        // require(); 
         daoID++; 
         uint _amountInvested = 0; 
         uint currentId = daoID; 
@@ -64,7 +66,8 @@ contract FarmDAO {
             description: _description, 
             name: _name, 
             id: currentId, 
-            amountInvested: _amountInvested
+            amountInvested: _amountInvested, 
+            investors: new address[](0)
         });
 
         daos[currentId] = newDao;
@@ -77,6 +80,19 @@ contract FarmDAO {
         daoCreated = true;
         emit DaoCreated(address(this));
     }
+
+    // Function for withdrawing the funds 
+    function withDrawDFunds(uint daoId) public{
+        Dao storage dao = daos[daoId];
+        require(msg.sender == dao.address1 || msg.sender == dao.address2, "Only farmers can withdraw funds!"); 
+
+        uint amountToWithdraw = dao.amountInvested; 
+        require(amountToWithdraw > 0, "No funds to withdraw!"); 
+        dao.amountInvested = 0; 
+
+        (bool success, ) = msg.sender.call{value: amountToWithdraw}(""); 
+        require(success, "Failed to transfer funds!"); 
+    } 
 
     function getAllDaos() public view returns (Dao[] memory) {
         Dao[] memory allDaos = new Dao[](daoID);
