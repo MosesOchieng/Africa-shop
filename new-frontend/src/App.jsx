@@ -19,11 +19,16 @@ import connectWallet from './components/ConnectWallet/ConnectWallet'
 function App() {
   const [registeredDAOs, setRegisteredDAOs] = useState([]); 
   const [address, setAddress] = useState(); 
+  const [walletConnected, setWalletConnected] = useState(); 
   
   return (
     <div className="App">
             <Navbar 
               ConnectWallet={connectWallet}
+              walletConnected={walletConnected}
+              setWalletConnected={setWalletConnected}
+              setAddress={setAddress}
+              address={address}
             />
             <DaoDashboard 
               registeredDAOs={registeredDAOs}

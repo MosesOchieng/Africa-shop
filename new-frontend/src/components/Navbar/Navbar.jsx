@@ -1,7 +1,16 @@
 import React from 'react';
 import './Navbar.css'; // Assuming you have a separate CSS file called Navbar.css for styling
 
-const Navbar = () => {
+const Navbar = ({ ConnectWallet, walletConnected, setWalletConnected, setAddress , address }) => {
+
+  const handleWalletConnect = async () => {
+    console.log("Connecting wallet...."); 
+    const account = await ConnectWallet(); 
+    console.log("Connected account is: ", account); 
+    setWalletConnected(true); 
+    setAddress(account); 
+  }
+
   return (
     <nav>
       <ul className="navbar-list">
@@ -27,7 +36,13 @@ const Navbar = () => {
               <a className="navbar-link" href="/team">Team</a>
             </li>
             <li className="navbar-item">
-            <button className="connect-wallet-button">Connect Wallet</button>
+                {
+                   !walletConnected ? (
+                    <button className="connect-wallet-button" onClick={handleWalletConnect}>Connect Wallet</button>
+                   ) : (
+                    <button className="connect-wallet-button">{address.slice(0,6)}...{address.slice(38,42)}</button>
+                   )
+                }
             </li>
         </div>
 
