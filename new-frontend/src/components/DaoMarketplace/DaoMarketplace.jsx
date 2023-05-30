@@ -17,6 +17,8 @@ function DaoMarketplace({ registeredDAOs, setRegisteredDAOs }) {
   const [showPopup, setShowPopup] = useState(false); 
   const [success, setSuccess] = useState(false); 
   const [error, setError] = useState(false); 
+  const [investmentAmount, setInvestmentAmount] = useState(""); 
+
 
   const getRegisteredDAOs = async () => {
     const { farmDaoContract }  = await getProviderOrSigner(false); 
@@ -26,7 +28,8 @@ function DaoMarketplace({ registeredDAOs, setRegisteredDAOs }) {
     console.log("DAOs created are: ", allDAOs)
     setRegisteredDAOs(allDAOs); 
   }
-
+  
+  // Remove this function
   const getPriceFeed = async () => {
     const { priceFeed } = await getProviderOrSigner(false);
     console.log("Getting round data..."); 
@@ -39,10 +42,15 @@ function DaoMarketplace({ registeredDAOs, setRegisteredDAOs }) {
     // })
   }
 
-  const getPriceConsumer = async () => {
+  const getPriceConsumer = async (amount) => {
     const { priceConsumer } = await getProviderOrSigner(false); 
     const price = await priceConsumer.getLatestPrice(); 
-    console.log("Latest price is: ", price.toString())
+    const priceInt = parseInt(price) / 100000000;  
+
+    const investAmount = amount / priceInt;
+    
+    console.log("Invest amount: ", investAmount.toFixed(5));
+    return investAmount.toFixed(5); 
   }
 
   const investDao = async (investAmt, id) => {
@@ -51,9 +59,10 @@ function DaoMarketplace({ registeredDAOs, setRegisteredDAOs }) {
     setLoading(true); 
     setLoadingStatement("Sending funds...")
     try {
+      // console.log("Investment amount: ", investAmt); 
       const { farmDaoContract } = await getProviderOrSigner(true); 
       const tx = await farmDaoContract.addInvestment(id, {
-        value: utils.parseEther(investAmt.toString()),
+        value: utils.parseEther(investAmt),
         gasLimit: 100000,
       }); 
 
@@ -90,7 +99,7 @@ function DaoMarketplace({ registeredDAOs, setRegisteredDAOs }) {
     console.log("Connecting wallet...")
     const account =  await connectWallet(); 
     
-    let investmentAmount; 
+    // let investmentAmount; 
 
     setModalTitle(title);
     if (title === "LOAN") {
@@ -119,10 +128,12 @@ function DaoMarketplace({ registeredDAOs, setRegisteredDAOs }) {
             <label>Amount: </label>
             <input 
               type="number" 
-              placeholder="Enter amount to invest" 
+              placeholder="Enter amount to invest in dollars" 
               name="DaoName"
               onChange={ (e) => {
-                investmentAmount = e.target.value;  
+                const investAmount = getPriceConsumer(e.target.value); 
+                // console.log("Investment amount: ", investAmount);
+                setInvestmentAmount(investAmount);  
               }}
               />
           </div>
@@ -130,6 +141,8 @@ function DaoMarketplace({ registeredDAOs, setRegisteredDAOs }) {
           <button className="close-btn" onClick={ () => investDao(investmentAmount, parseInt(itemId)) }>
             INVEST
           </button>
+
+          <p>That will cost you {investmentAmount} ETH</p>
         </div>
       );
     }

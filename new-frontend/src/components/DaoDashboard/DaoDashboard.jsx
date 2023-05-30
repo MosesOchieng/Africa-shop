@@ -222,9 +222,12 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs, address, setAddress }
         succes={success}
       />
 
-      <h1 className='dao-heading'>DAO DASHBOARD</h1>
+      <h1 className='dao-heading'>REGISTER DAO</h1>
        
       <div className='description-container'>
+
+        <p className='dao-register'>Already registered? <button>Login</button></p>
+
         <p className='dao-description'>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce auctor faucibus augue, eu 
           pellentesque libero aliquet vitae. Sed nec felis ut lacus dictum hendrerit at 
@@ -232,8 +235,32 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs, address, setAddress }
           Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac 
           turpis egestas.
         </p>
+        
+        <div className='description-images'>
+        <div className="image-container">
+          <span className="image-text">Requirements</span>
+          <img className="description-image" src="./farmer.jpg" />
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce auctor faucibus augue, eu 
+          pellentesque libero aliquet vitae. Sed nec felis ut lacus dictum hendrerit at 
+          sed lacus</p>
+        </div>
+        <div className="image-container">
+          <span className="image-text">Plan</span>
+          <img className="description-image" src="./farmer.jpg" />
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce auctor faucibus augue, eu 
+          pellentesque libero aliquet vitae. Sed nec felis ut lacus dictum hendrerit at 
+          sed lacus</p>
+        </div>
+        <div className="image-container">
+          <span className="image-text">Vision</span>
+          <img className="description-image" src="./farmer.jpg" />
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce auctor faucibus augue, eu 
+          pellentesque libero aliquet vitae. Sed nec felis ut lacus dictum hendrerit at 
+          sed lacus</p>
+        </div>
+      </div>
 
-        <img className="description-image" src="./farmer.jpg" />
+      
       </div>
 
       <div>

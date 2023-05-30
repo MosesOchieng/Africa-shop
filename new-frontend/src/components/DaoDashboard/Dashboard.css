@@ -61,9 +61,50 @@ body {
   .description-container {
     display: flex;
     align-items: center;
-    flex-direction: row;
+    flex-direction: column;
     padding: 40px;
   }
+
+  .dao-register {
+    color: #fff;
+    margin: 0;
+    padding: 0;
+  }
+
+  .description-images {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .image-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 15px;
+    color: #fff;
+    background-color: #1938a2;
+    width: 250px;
+    height: 300px;
+    border-radius: 5px;
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+    transition: 1s;
+  }
+
+  .image-container:hover {
+    -webkit-transform: translateY(-10px);
+    -ms-transform: translateY(-10px);
+    transform: translateY(-10px);
+  }
+  
+  .image-text {
+    display: block;
+    text-align: center;
+    margin-top: 5px;
+  }
+  
 
   .dao-description {
     color: #fff;
