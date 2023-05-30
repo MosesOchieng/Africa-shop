@@ -12,6 +12,7 @@ import {
   Routes,
   // Redirect
  } from 'react-router-dom';
+import Navbar from './components/Navbar/Navbar'
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
   
   return (
     <div className="App">
+            <Navbar />
             <DaoDashboard 
               registeredDAOs={registeredDAOs}
               setRegisteredDAOs={setRegisteredDAOs}
