@@ -4,7 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 // import partciles from 'particles.js'; // WORK ON THIS IMPORTS
 import DaoDashboard from './components/DaoDashboard/DaoDashboard'
-import ConnectWallet from './components/ConnectWallet/ConnectWallet'
+// import ConnectWallet from './components/ConnectWallet/ConnectWallet'
 import DaoMarketplace from './components/DaoMarketplace/DaoMarketplace'
 import { 
   BrowserRouter as Router,  
@@ -13,6 +13,7 @@ import {
   // Redirect
  } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar'
+import connectWallet from './components/ConnectWallet/ConnectWallet'
 
 
 function App() {
@@ -21,7 +22,9 @@ function App() {
   
   return (
     <div className="App">
-            <Navbar />
+            <Navbar 
+              ConnectWallet={connectWallet}
+            />
             <DaoDashboard 
               registeredDAOs={registeredDAOs}
               setRegisteredDAOs={setRegisteredDAOs}

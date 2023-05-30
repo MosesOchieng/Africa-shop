@@ -226,7 +226,7 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs, address, setAddress }
        
       <div className='description-container'>
 
-        <p className='dao-register'>Already registered? <button>Login</button></p>
+        <p className='dao-register'>Already registered? <a onClick={handleLogin}>Login</a></p>
 
         <p className='dao-description'>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce auctor faucibus augue, eu 
@@ -265,7 +265,7 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs, address, setAddress }
 
       <div>
         <button onClick={() => { handleShowModal("REGISTER", "This is the Register Modal Content"); connectWallet() }}>Register DAO</button>
-        <button onClick={() => { handleLogin(); connectWallet() }}>Login DAO</button>
+        {/* <button onClick={() => { handleLogin(); connectWallet() }}>Login DAO</button> */}
       </div>
 
       <PopupModal 
