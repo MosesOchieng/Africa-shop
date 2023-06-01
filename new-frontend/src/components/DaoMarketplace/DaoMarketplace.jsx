@@ -19,6 +19,8 @@ function DaoMarketplace({ registeredDAOs, setRegisteredDAOs }) {
   const [error, setError] = useState(false); 
   const [investmentAmount, setInvestmentAmount] = useState(""); 
 
+  let investAMT; 
+
 
   const getRegisteredDAOs = async () => {
     const { farmDaoContract }  = await getProviderOrSigner(false); 
@@ -49,7 +51,7 @@ function DaoMarketplace({ registeredDAOs, setRegisteredDAOs }) {
 
     const investAmount = amount / priceInt;
     
-    console.log("Invest amount: ", investAmount.toFixed(5));
+    // console.log("Invest amount: ", investAmount.toFixed(5));
     return investAmount.toFixed(5); 
   }
 
@@ -58,11 +60,12 @@ function DaoMarketplace({ registeredDAOs, setRegisteredDAOs }) {
     setShowModal(false); 
     setLoading(true); 
     setLoadingStatement("Sending funds...")
-    try {
-      // console.log("Investment amount: ", investAmt); 
+    try { 
+      const investAmount = await getPriceConsumer(investAMT);
+      console.log("Investment amount: ", investAmount);
       const { farmDaoContract } = await getProviderOrSigner(true); 
       const tx = await farmDaoContract.addInvestment(id, {
-        value: utils.parseEther(investAmt),
+        value: utils.parseEther(investAmount),
         gasLimit: 100000,
       }); 
 
@@ -131,18 +134,19 @@ function DaoMarketplace({ registeredDAOs, setRegisteredDAOs }) {
               placeholder="Enter amount to invest in dollars" 
               name="DaoName"
               onChange={ (e) => {
-                const investAmount = getPriceConsumer(e.target.value); 
-                // console.log("Investment amount: ", investAmount);
-                setInvestmentAmount(investAmount);  
+                investAMT = e.target.value; 
+                // const investAmount = getPriceConsumer(e.target.value); 
+                console.log("Investment amount: ", investAMT);
+                // setInvestmentAmount(investAmount);  
               }}
               />
           </div>
 
-          <button className="close-btn" onClick={ () => investDao(investmentAmount, parseInt(itemId)) }>
+          <button className="close-btn" onClick={ () => investDao(investAMT, parseInt(itemId)) }>
             INVEST
           </button>
 
-          <p>That will cost you {investmentAmount} ETH</p>
+          <p>That will cost you {investAMT} ETH</p>
         </div>
       );
     }
