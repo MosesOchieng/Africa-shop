@@ -64,6 +64,15 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs, address, setAddress }
 
   }
 
+  const getRegisteredDAOs = async () => {
+    const { farmDaoContract }  = await getProviderOrSigner(false); 
+    console.log("Fetching DAOs...")
+    const allDAOs = await farmDaoContract.getAllDaos(); 
+    
+    console.log("DAOs created are: ", allDAOs)
+    setRegisteredDAOs(allDAOs); 
+  }
+
   const submitRegister = async (event) => {
     try {
       const { farmDaoContract } = await getProviderOrSigner(true); 
@@ -91,7 +100,9 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs, address, setAddress }
       setTimeout(() => {
         setShowPopup(false)
         setSuccess(false)
-      }, 3000)
+      }, 3000); 
+
+      getRegisteredDAOs(); 
 
     } catch (error) {
       console.error(error); 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './Navbar.css'; // Assuming you have a separate CSS file called Navbar.css for styling
 
 const Navbar = ({ ConnectWallet, walletConnected, setWalletConnected, setAddress , address }) => {
@@ -10,6 +10,12 @@ const Navbar = ({ ConnectWallet, walletConnected, setWalletConnected, setAddress
     setWalletConnected(true); 
     setAddress(account); 
   }
+
+  useEffect( () => {
+    window.ethereum.on('accountsChanged', function () {
+      window.location.reload(); 
+    })
+  }, [])
 
   return (
     <nav>

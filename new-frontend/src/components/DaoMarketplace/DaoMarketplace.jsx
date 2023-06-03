@@ -17,9 +17,9 @@ function DaoMarketplace({ registeredDAOs, setRegisteredDAOs }) {
   const [showPopup, setShowPopup] = useState(false); 
   const [success, setSuccess] = useState(false); 
   const [error, setError] = useState(false); 
-  const [investmentAmount, setInvestmentAmount] = useState(""); 
+  const [investmentAmount, setInvestmentAmount] = useState(0); 
 
-  let investAMT; 
+  let investAMT = 0; 
 
 
   const getRegisteredDAOs = async () => {
@@ -55,6 +55,15 @@ function DaoMarketplace({ registeredDAOs, setRegisteredDAOs }) {
     return investAmount.toFixed(5); 
   }
 
+   // Change this code 
+   const getPrice = async () => {
+    const investAmount = await getPriceConsumer(investAMT);
+    setInvestmentAmount(investAmount); 
+    console.log("Investment amount on top is: ", investmentAmount); 
+  }
+  
+  getPrice(); 
+
   const investDao = async (investAmt, id) => {
     console.log("Sending funds...")
     setShowModal(false); 
@@ -62,6 +71,7 @@ function DaoMarketplace({ registeredDAOs, setRegisteredDAOs }) {
     setLoadingStatement("Sending funds...")
     try { 
       const investAmount = await getPriceConsumer(investAMT);
+      setInvestmentAmount(investAmount); 
       console.log("Investment amount: ", investAmount);
       const { farmDaoContract } = await getProviderOrSigner(true); 
       const tx = await farmDaoContract.addInvestment(id, {
@@ -131,10 +141,11 @@ function DaoMarketplace({ registeredDAOs, setRegisteredDAOs }) {
             <label>Amount: </label>
             <input 
               type="number" 
-              placeholder="Enter amount to invest in dollars" 
+              placeholder="Enter amount to invest in dollars (USD)" 
               name="DaoName"
               onChange={ (e) => {
                 investAMT = e.target.value; 
+                setInvestmentAmount(investAMT); 
                 // const investAmount = getPriceConsumer(e.target.value); 
                 console.log("Investment amount: ", investAMT);
                 // setInvestmentAmount(investAmount);  
@@ -146,7 +157,7 @@ function DaoMarketplace({ registeredDAOs, setRegisteredDAOs }) {
             INVEST
           </button>
 
-          <p>That will cost you {investAMT} ETH</p>
+          <p>That will cost you {investmentAmount} ETH</p>
         </div>
       );
     }
