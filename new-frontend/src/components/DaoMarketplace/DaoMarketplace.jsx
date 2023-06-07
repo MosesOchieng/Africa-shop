@@ -136,12 +136,11 @@ function DaoMarketplace({ registeredDAOs, setRegisteredDAOs }) {
               type="number" 
               placeholder="Enter amount to invest in dollars (USD)" 
               name="DaoName"
-              onChange={ (e) => {
+              onChange={ async (e) => {
                 investAMT = e.target.value; 
-                setInvestmentAmount(investAMT); 
-                // const investAmount = getPriceConsumer(e.target.value); 
-                console.log("Investment amount: ", investAMT);
-                // setInvestmentAmount(investAmount);  
+                const priceInEth = await getPriceConsumer(investAMT); 
+                console.log("Price in eth is: ", priceInEth); 
+                setInvestmentAmount(priceInEth); 
               }}
               />
           </div>
@@ -160,7 +159,7 @@ function DaoMarketplace({ registeredDAOs, setRegisteredDAOs }) {
   useEffect(() => {
     getRegisteredDAOs(); 
     getPriceConsumer(); 
-  }, [])
+  }, [investmentAmount])
 
   return (
 
