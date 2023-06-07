@@ -11,6 +11,9 @@ const DAO = ({ daoContent, setShowDao }) => {
         console.log("Withdrawing funds..."); 
         try {
             const { farmDaoContract }  = await getProviderOrSigner(true); 
+            const tx = await farmDaoContract.withDrawDFunds(daoContent.id); 
+            await tx.wait(); 
+            console.log("Funds sent successfully!");
         } catch (error) {
             console.error(error); 
         }
@@ -39,9 +42,6 @@ const DAO = ({ daoContent, setShowDao }) => {
                     <div>
                         <p className='descriptionArea' >Investors</p>
                         <div  className='descriptionArZea'>
-                            {/* {daoContent.investors.map((investor) => {
-                                <a href="https://sepolia.etherscan.io/" target='_blank'>{investor.slice(0,6)}...{investor.slice(38,42)}</a>
-                            })} */}
                             { hyperlinkTag }
                         </div>
                     </div>
