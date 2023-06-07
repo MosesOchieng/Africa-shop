@@ -69,7 +69,7 @@ function DaoMarketplace({ registeredDAOs, setRegisteredDAOs }) {
       const { farmDaoContract } = await getProviderOrSigner(true); 
       const tx = await farmDaoContract.addInvestment(id, {
         value: utils.parseEther(investAmount),
-        gasLimit: 100000,
+        gasLimit: 150000,
       }); 
 
       await tx.wait(); 
