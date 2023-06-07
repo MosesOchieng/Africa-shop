@@ -1,12 +1,27 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { utils } from 'ethers';
+import getProviderOrSigner from '../../contractInstance';
 import './DAO.css'; // Import the CSS file for styling
 
 
 const DAO = ({ daoContent, setShowDao }) => {
 
-    console.log("Dao content is: ", daoContent)
+    const handleWithdrawFunds = async () => {
+        console.log("Withdrawing funds..."); 
+        try {
+            const { farmDaoContract }  = await getProviderOrSigner(true); 
+        } catch (error) {
+            console.error(error); 
+        }
+    }
+
+    const hyperlinkTag = daoContent.investors.map((investor) => {
+        return (
+            <a href={`https://sepolia.etherscan.io/address/${investor}`} target='_blank' className='investors'>{investor.slice(0,6)}...{investor.slice(38,42)}</a>
+        )
+    })
+    console.log("Investors: ", hyperlinkTag); 
 
     return (
         <div className="login-container">
@@ -24,24 +39,25 @@ const DAO = ({ daoContent, setShowDao }) => {
                     <div>
                         <p className='descriptionArea' >Investors</p>
                         <div  className='descriptionArZea'>
-                            {daoContent.investors.map((investor) => {
+                            {/* {daoContent.investors.map((investor) => {
                                 <a href="https://sepolia.etherscan.io/" target='_blank'>{investor.slice(0,6)}...{investor.slice(38,42)}</a>
-                            })}
+                            })} */}
+                            { hyperlinkTag }
                         </div>
                     </div>
 
                     <div>
                         <p className='descriptionArea' >Owners</p>
                         <div  className='descriptionArea'>
-                            <a href="https://sepolia.etherscan.io/" target='_blank'>{daoContent.address1.slice(0,6)}...{daoContent.address1.slice(38,42)}</a>
-                            <a href="https://sepolia.etherscan.io/" target='_blank'>{daoContent.address2.slice(0,6)}...{daoContent.address2.slice(38,42)}</a>
+                            <a href={`https://sepolia.etherscan.io/address/${daoContent.address1}`} target='_blank'>{daoContent.address1.slice(0,6)}...{daoContent.address1.slice(38,42)}</a>
+                            <a href={`https://sepolia.etherscan.io/address/${daoContent.address2}`} target='_blank'>{daoContent.address2.slice(0,6)}...{daoContent.address2.slice(38,42)}</a>
                         </div>
                     </div>
 
                 </div>
 
                 <div>
-                    <button className="withdraw-button">Withdraw Funds</button>
+                    <button className="withdraw-button" onClick={ () => handleWithdrawFunds() }>Withdraw Funds</button>
                     <button className="exit-button" onClick={ () => setShowDao(false) }>Exit</button>
                 </div>
             </div>
