@@ -18,8 +18,10 @@ function DaoMarketplace({ registeredDAOs, setRegisteredDAOs }) {
   const [success, setSuccess] = useState(false); 
   const [error, setError] = useState(false); 
   const [investmentAmount, setInvestmentAmount] = useState(0); 
+  const [ethPrice, setEthPrice] = useState(); 
 
   let investAMT = 0; 
+  // let ethPrice; 
 
 
   const getRegisteredDAOs = async () => {
@@ -51,18 +53,9 @@ function DaoMarketplace({ registeredDAOs, setRegisteredDAOs }) {
 
     const investAmount = amount / priceInt;
     
-    // console.log("Invest amount: ", investAmount.toFixed(5));
+    setEthPrice(priceInt); 
     return investAmount.toFixed(5); 
   }
-
-   // Change this code 
-   const getPrice = async () => {
-    const investAmount = await getPriceConsumer(investAMT);
-    setInvestmentAmount(investAmount); 
-    console.log("Investment amount on top is: ", investmentAmount); 
-  }
-  
-  getPrice(); 
 
   const investDao = async (investAmt, id) => {
     console.log("Sending funds...")
@@ -194,7 +187,7 @@ function DaoMarketplace({ registeredDAOs, setRegisteredDAOs }) {
                 <h3>{item.name}</h3>
                 <div>Farmer Address 1: {item.address1.slice(0,6)}...{item.address1.slice(38,42)}<br/>Farmer Address 2: {item.address2.slice(0,6)}...{item.address2.slice(38,42)}</div>
                 <p>DESCRIPTION: {item.description}</p>
-                <p>FUNDS INVESTED: {utils.formatEther(item.amountInvested)} ETH</p>
+                <p>FUNDS INVESTED: {(parseFloat(utils.formatEther(item.amountInvested))*ethPrice).toFixed(5)} USD</p>
               </div>
               <div className="card-buttons">
                 <button onClick={() => handleShowModal("LOAN", item.id.toString())}>Loan</button>
