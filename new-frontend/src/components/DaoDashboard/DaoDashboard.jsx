@@ -171,6 +171,14 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs, address, setAddress }
               }}
             />
           </div>
+          <div>
+           <label>Financial Reports</label>
+           <input type="file" onChange={ () => console.log("Financial report")} />
+          </div>
+          <div>
+            <label>Farm Reports</label>
+            <input type="file" onChange={ () => console.log("Farm report")} />
+          </div>
           <button className="close-btn" onClick={submitRegister}>
             REGISTER
           </button> 
