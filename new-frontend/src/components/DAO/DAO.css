@@ -19,7 +19,7 @@
     font-weight: 600;
     border: none;
     text-align: center;
-   
+    
   }
   
   .login-form {
@@ -28,7 +28,7 @@
     align-items: center;
     justify-content: center;
     background-color: #f2f2f2;
-    padding: 20px;
+    padding: 50px;
     border-radius: 8px;
     text-align: center;
     height: 70%;
@@ -55,9 +55,6 @@
     flex-direction: column;
   }
 
-
- 
-
   .withdraw-button, .exit-button {
     background-color: #0b1e60;
     color: white;
@@ -75,4 +72,23 @@
 
   .investors {
     display: block;
+  }
+
+  .reports {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .reports div {
+    border: 1px solid #000;
+    border-radius: 5px;
+    margin: 3px;
+    padding: 10px;
+    cursor: pointer;
+  }
+
+  .reports div a {
+    text-decoration: none;
   }

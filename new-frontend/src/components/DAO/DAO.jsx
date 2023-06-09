@@ -38,6 +38,16 @@ const DAO = ({ daoContent, setShowDao }) => {
                     <p className='descriptionArea' >Total Amount Invested</p>
                     <p className='descriptionArea' >{utils.formatEther(daoContent.amountInvested)} USD</p>
                 </div>
+
+                <div className='reports'>
+                    <div>
+                      <a href='https://drive.google.com/file/d/1KCKqd8mLERcYfX99qPOuYexhyydD-hW5/view?usp=sharing' target='_blank'>Check Farm Report</a>
+                    </div>
+                    <div>
+                      <a href='https://drive.google.com/file/d/1KCKqd8mLERcYfX99qPOuYexhyydD-hW5/view?usp=sharing' target='_blank'>Check Financial Report</a>
+                    </div>
+                </div>
+                    
                 <div className="invested-form">
                     <div>
                         <p className='descriptionArea' >Investors</p>
