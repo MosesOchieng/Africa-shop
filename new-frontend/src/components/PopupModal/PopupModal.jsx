@@ -11,7 +11,7 @@ const PopupModal = ({ showModal, handleCloseModal, modalTitle, modalContent }) =
           <button className='modal-close' onClick={handleCloseModal}>
             X
           </button>
-          <h2>{modalTitle}</h2>
+          <h2 className='modal-title'>{modalTitle}</h2>
 
           <div>
             {modalContent}

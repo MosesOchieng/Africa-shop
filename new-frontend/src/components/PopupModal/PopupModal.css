@@ -40,6 +40,12 @@
   background-color: #0062cc;
 }
 
+/* Modal title */
+.modal-title {
+  text-align: center;
+  margin-left: 100px;
+  margin-bottom: 30px;
+}
 /* Style the content container */
 .content-container {
   display: flex;
