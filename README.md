@@ -2,7 +2,7 @@
 
 Link to Landing Page : https://polygon-circular-community.vercel.app/ 
 
-Link to site demo: https://www.loom.com/share/f2c957a2d4dc4a509622bda3421eaddd 
+Link to site demo: https://www.loom.com/share/cc3e8ac8be2648f4a2dbfc6a2ea2d808
 
 # Description:
 Polygon Circular Community is a decentralized platform that offers loans and investment opportunities to farmers across Africa. It is built on the Polygon network, which is a high-performance, low-cost blockchain network. The platform allows farmers to access affordable loans and investments through the Aave protocol on Polygon and the 1inch fusion API. This project aims to address the challenges that farmers in Africa face in accessing finance for their agricultural activities.
