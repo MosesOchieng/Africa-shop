@@ -183,14 +183,14 @@ function DaoMarketplace({ registeredDAOs, setRegisteredDAOs }) {
           {registeredDAOs.map((item, index) => (
             <div key={index} className="card">
               <div className="card-info">
-                <h3>{item.name}</h3>
+                <h3>{item.financialReports}</h3> {/* THIS IS A BUG -- MAKE CHANGESS */}
                 <div>Farmer Address 1: {item.address1.slice(0,6)}...{item.address1.slice(38,42)}<br/>Farmer Address 2: {item.address2.slice(0,6)}...{item.address2.slice(38,42)}</div>
                 <p>DESCRIPTION: {item.description}</p>
                 <p>FUNDS INVESTED: {(parseFloat(utils.formatEther(item.amountInvested))*ethPrice).toFixed(5)} USD</p>
               </div>
               <div className="card-buttons">
-                <button onClick={() => handleShowModal("LOAN", item.id.toString())}>Loan</button>
-                <button onClick={() => handleShowModal("INVEST", item.id.toString())}>Invest</button>
+                {/* <button onClick={() => handleShowModal("LOAN", item.id.toString())}>Loan</button> */}
+                <button onClick={() => handleShowModal("INVEST", item.id.toString())}>Check full details</button>
               </div>
             </div>
           ))}
