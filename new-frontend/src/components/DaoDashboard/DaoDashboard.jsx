@@ -25,6 +25,8 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs, address, setAddress }
   let walletAddress1; 
   let walletAddress2; 
   let description; 
+  let farmReports; 
+  let financialReports; 
 
   // For login
   let loginName; 
@@ -34,44 +36,6 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs, address, setAddress }
   const handleCloseModal = () => {
     setShowModal(false);
   };
-  
-  // Handling file upload
-  let choosenFiles = []; 
-
-  const handleFileChange = (e) => {
-    console.log("Handling file change..."); 
-    console.log("Selected files are: ", e.target.value); 
-
-    // setFileList(e.target.files); 
-    choosenFiles.push(e.target.value); 
-  }
-
-  const handleUploadClick = () => {
-    console.log("Choosen files are: ", choosenFiles); 
-
-    if(!choosenFiles){
-      console.log("No files choosen!"); 
-      return; 
-    }
-
-    const data = new FormData(); 
-    choosenFiles.forEach((file, i) => {
-      data.append(`file-${i}`, file, file.name); 
-      console.log('Data is: ', data); 
-      console.log('File is: ', file); 
-      console.log('File name is: ', file.name); 
-    }); 
-
-    fetch('https://httpbin.org/post', {
-      method: 'POST', 
-      body: data, 
-    })
-      .then((res) => res.json()) 
-      .then((data) => console.log("Response data is: ", data))
-      .catch((err) => console.error(err))
-  }
-
-  const files = fileList ? [...fileList] : [];
 
   const submitLogin = () => {
     console.log("Login Name: ", loginName); 
@@ -114,7 +78,11 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs, address, setAddress }
 
   const submitRegister = async (event) => {
     try {
-      handleUploadClick(); 
+      // const { farmDaoContract }  = await getProviderOrSigner(false); 
+      // const allDAOs = await farmDaoContract.getAllDaos(); 
+
+      // console.log("All DAOs are: ", allDAOs.length); 
+      console.log("Registered DAOs are: ", registeredDAOs.length); 
 
       // const { farmDaoContract } = await getProviderOrSigner(true); 
 
@@ -214,11 +182,25 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs, address, setAddress }
           </div>
           <div>
            <label>Financial Reports</label>
-           <input type="file" onChange={handleFileChange} />
+           <input 
+              type="text" 
+              placeholder='Insert Google Drive Link'
+              name='financialReports'
+              onChange={ (e) => {
+                financialReports = e.target.value
+              }}
+            />
           </div>
           <div>
             <label>Farm Reports</label>
-            <input type="file" onChange={handleFileChange} />
+            <input 
+              type="text" 
+              placeholder='Insert Google Drive Link'
+              name='farmReports'
+              onChange={ (e) => {
+                farmReports = e.target.value
+              }} 
+            />
           </div>
           <button className="close-btn" onClick={submitRegister}>
             REGISTER
