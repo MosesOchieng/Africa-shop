@@ -40,3 +40,18 @@ h1 {
   justify-content: space-between;
   box-shadow: green;
 }
+
+/* DAO styles */
+.content-container {
+  height: 70vh;
+}
+
+.dao-details, .reports-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.descriptionArea {
+  display: flex;
+  flex-direction: column;
+}
