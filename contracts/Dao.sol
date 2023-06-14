@@ -21,6 +21,8 @@ contract FarmDAO {
         address address1;
         address address2;
         string description;
+        string farmReports; 
+        string financialReports; 
         string name; 
         uint id; 
         uint amountInvested; 
@@ -53,7 +55,7 @@ contract FarmDAO {
         emit InvestmentAdded(msg.sender, msg.value);
     }
 
-    function createDao(address _farmer1, address _farmer2, string memory _description, string memory _name) public {
+    function createDao(address _farmer1, address _farmer2, string memory _description, string memory _name, string  memory _farmReports, string memory _financialReports) public {
         // require(); 
         daoID++; 
         uint _amountInvested = 0; 
@@ -63,6 +65,8 @@ contract FarmDAO {
             address1: _farmer1,
             address2: _farmer2,
             description: _description, 
+            farmReports: _farmReports, 
+            financialReports: _financialReports, 
             name: _name, 
             id: currentId, 
             amountInvested: _amountInvested, 
