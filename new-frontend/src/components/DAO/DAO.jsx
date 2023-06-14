@@ -30,7 +30,7 @@ const DAO = ({ daoContent, setShowDao }) => {
         <div className="login-container">
 
             <div className="login-form">
-                <h2>{daoContent.name}</h2>
+                <h2>{daoContent.financialReports}</h2>
                 <div className="description">
                     <p>{daoContent.description}</p>
                 </div>
@@ -41,10 +41,10 @@ const DAO = ({ daoContent, setShowDao }) => {
 
                 <div className='reports'>
                     <div>
-                      <a href='https://drive.google.com/file/d/1KCKqd8mLERcYfX99qPOuYexhyydD-hW5/view?usp=sharing' target='_blank'>Check Farm Report</a>
+                      <a href={daoContent.farmReports} target='_blank'>Your Financial Report</a>
                     </div>
                     <div>
-                      <a href='https://drive.google.com/file/d/1KCKqd8mLERcYfX99qPOuYexhyydD-hW5/view?usp=sharing' target='_blank'>Check Financial Report</a>
+                      <a href={daoContent.name} target='_blank'>Your Farm Report</a>
                     </div>
                 </div>
                     
