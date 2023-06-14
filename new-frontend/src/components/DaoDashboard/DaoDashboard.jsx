@@ -19,6 +19,7 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs, address, setAddress }
   const [error, setError] = useState(false); 
   const [showDao, setShowDao] = useState(false); 
   const [daoContent, setDaoContent] = useState(); 
+  const [fileList, setFileList] = useState(null);
 
   let daoName;  
   let walletAddress1; 
@@ -33,6 +34,44 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs, address, setAddress }
   const handleCloseModal = () => {
     setShowModal(false);
   };
+  
+  // Handling file upload
+  let choosenFiles = []; 
+
+  const handleFileChange = (e) => {
+    console.log("Handling file change..."); 
+    console.log("Selected files are: ", e.target.value); 
+
+    // setFileList(e.target.files); 
+    choosenFiles.push(e.target.value); 
+  }
+
+  const handleUploadClick = () => {
+    console.log("Choosen files are: ", choosenFiles); 
+
+    if(!choosenFiles){
+      console.log("No files choosen!"); 
+      return; 
+    }
+
+    const data = new FormData(); 
+    choosenFiles.forEach((file, i) => {
+      data.append(`file-${i}`, file, file.name); 
+      console.log('Data is: ', data); 
+      console.log('File is: ', file); 
+      console.log('File name is: ', file.name); 
+    }); 
+
+    fetch('https://httpbin.org/post', {
+      method: 'POST', 
+      body: data, 
+    })
+      .then((res) => res.json()) 
+      .then((data) => console.log("Response data is: ", data))
+      .catch((err) => console.error(err))
+  }
+
+  const files = fileList ? [...fileList] : [];
 
   const submitLogin = () => {
     console.log("Login Name: ", loginName); 
@@ -75,34 +114,36 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs, address, setAddress }
 
   const submitRegister = async (event) => {
     try {
-      const { farmDaoContract } = await getProviderOrSigner(true); 
+      handleUploadClick(); 
 
-      console.log("Creating the DAO..."); 
-      setShowModal(false); 
-      setLoading(true); 
-      setLoadingStatement("Creating the DAO...")
-      const tx = await farmDaoContract.createDao(
-        walletAddress1, 
-        walletAddress2, 
-        description, 
-        daoName, 
-        { gasLimit: 1000000 }
-      )
-      console.log("Adding DAO...")
-      setLoadingStatement("Adding DAO...")
+      // const { farmDaoContract } = await getProviderOrSigner(true); 
 
-      await tx.wait(); 
-      setLoading(false); 
-      console.log("DAO created succesfully!")
+      // console.log("Creating the DAO..."); 
+      // setShowModal(false); 
+      // setLoading(true); 
+      // setLoadingStatement("Creating the DAO...")
+      // const tx = await farmDaoContract.createDao(
+      //   walletAddress1, 
+      //   walletAddress2, 
+      //   description, 
+      //   daoName, 
+      //   { gasLimit: 1000000 }
+      // )
+      // console.log("Adding DAO...")
+      // setLoadingStatement("Adding DAO...")
 
-      setShowPopup(true);
-      setSuccess(true) 
-      setTimeout(() => {
-        setShowPopup(false)
-        setSuccess(false)
-      }, 3000); 
+      // await tx.wait(); 
+      // setLoading(false); 
+      // console.log("DAO created succesfully!")
 
-      getRegisteredDAOs(); 
+      // setShowPopup(true);
+      // setSuccess(true) 
+      // setTimeout(() => {
+      //   setShowPopup(false)
+      //   setSuccess(false)
+      // }, 3000); 
+
+      // getRegisteredDAOs(); 
 
     } catch (error) {
       console.error(error); 
@@ -173,11 +214,11 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs, address, setAddress }
           </div>
           <div>
            <label>Financial Reports</label>
-           <input type="file" onChange={ () => console.log("Financial report")} />
+           <input type="file" onChange={handleFileChange} />
           </div>
           <div>
             <label>Farm Reports</label>
-            <input type="file" onChange={ () => console.log("Farm report")} />
+            <input type="file" onChange={handleFileChange} />
           </div>
           <button className="close-btn" onClick={submitRegister}>
             REGISTER
