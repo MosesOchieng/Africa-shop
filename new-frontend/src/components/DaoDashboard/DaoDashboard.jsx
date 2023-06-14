@@ -78,40 +78,37 @@ const DaoDashboard = ({ registeredDAOs, setRegisteredDAOs, address, setAddress }
 
   const submitRegister = async (event) => {
     try {
-      // const { farmDaoContract }  = await getProviderOrSigner(false); 
-      // const allDAOs = await farmDaoContract.getAllDaos(); 
 
-      // console.log("All DAOs are: ", allDAOs.length); 
-      console.log("Registered DAOs are: ", registeredDAOs.length); 
+      const { farmDaoContract } = await getProviderOrSigner(true); 
 
-      // const { farmDaoContract } = await getProviderOrSigner(true); 
+      console.log("Creating the DAO..."); 
+      setShowModal(false); 
+      setLoading(true); 
+      setLoadingStatement("Creating the DAO...")
+      const tx = await farmDaoContract.createDao(
+        walletAddress1, 
+        walletAddress2, 
+        description, 
+        farmReports,
+        financialReports, 
+        daoName, 
+        { gasLimit: 1000000 }
+      )
+      console.log("Adding DAO...")
+      setLoadingStatement("Adding DAO...")
 
-      // console.log("Creating the DAO..."); 
-      // setShowModal(false); 
-      // setLoading(true); 
-      // setLoadingStatement("Creating the DAO...")
-      // const tx = await farmDaoContract.createDao(
-      //   walletAddress1, 
-      //   walletAddress2, 
-      //   description, 
-      //   daoName, 
-      //   { gasLimit: 1000000 }
-      // )
-      // console.log("Adding DAO...")
-      // setLoadingStatement("Adding DAO...")
+      await tx.wait(); 
+      setLoading(false); 
+      console.log("DAO created succesfully!")
 
-      // await tx.wait(); 
-      // setLoading(false); 
-      // console.log("DAO created succesfully!")
+      setShowPopup(true);
+      setSuccess(true) 
+      setTimeout(() => {
+        setShowPopup(false)
+        setSuccess(false)
+      }, 3000); 
 
-      // setShowPopup(true);
-      // setSuccess(true) 
-      // setTimeout(() => {
-      //   setShowPopup(false)
-      //   setSuccess(false)
-      // }, 3000); 
-
-      // getRegisteredDAOs(); 
+      getRegisteredDAOs(); 
 
     } catch (error) {
       console.error(error); 
