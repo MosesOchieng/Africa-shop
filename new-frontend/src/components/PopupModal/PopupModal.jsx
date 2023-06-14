@@ -8,10 +8,10 @@ const PopupModal = ({ showModal, handleCloseModal, modalTitle, modalContent }) =
     {showModal && (
       <div className="modal">
         <div className="modal-content">
-          <button className='modal-close' onClick={handleCloseModal}>
+          {/* <button className='modal-close' onClick={handleCloseModal}>
             X
-          </button>
-          <h2 className='modal-title'>{modalTitle}</h2>
+          </button> */}
+          {/* <h2 className='modal-title'>{modalTitle}</h2> */}
 
           <div>
             {modalContent}
