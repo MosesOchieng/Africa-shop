@@ -104,39 +104,28 @@ function DaoMarketplace({ registeredDAOs, setRegisteredDAOs }) {
   };
 
   const handleShowModal = async (title, itemId, item) => {
-    // console.log("Connecting wallet...")
-    // const account =  await connectWallet(); 
     
-    // let investmentAmount; 
-
-    const hyperlinkTag = item.investors.map((investor) => {
-      return (
-          <a href={`https://sepolia.etherscan.io/address/${investor}`} target='_blank' className='investors'>{investor.slice(0,6)}...{investor.slice(38,42)}</a>
-      )
-    })
-    
-    // Content header
-    const contentHeader = 
-    <div className='content-container'>
-      <h2 className='dao-name'>{item.financialReports}</h2>
-              
-      <div className="description">
-        <p>{item.description}</p>
+    const hyperlinkTag = item.investors.map((investor) => (
+      <a href={`https://sepolia.etherscan.io/address/${investor}`} target='_blank' className='investors'>{investor.slice(0,6)}...{investor.slice(38,42)}</a>
+    ));
+  
+    const contentHeader = (
+      <div className='content-container'>
+        <h2 className='dao-name'>{item.financialReports}</h2>
+        <div className="description">
+          <p>{item.description}</p>
+        </div>
+        <div className="invested-form">
+          <p className='descriptionArea'>Total Amount Invested</p>
+          <p className='descriptionArea'>{(parseFloat(utils.formatEther(item.amountInvested))*ethPrice).toFixed(5)} USD</p>
+        </div>
       </div>
-          
-      <div className="invested-form">
-          <p className='descriptionArea' >Total Amount Invested</p>
-          <p className='descriptionArea' >{(parseFloat(utils.formatEther(item.amountInvested))*ethPrice).toFixed(5)} USD</p>
-      </div>
-    </div>
-    
-    // DAO content
-    const daoContent = 
+    );
+  
+    const daoContent = (
       <div className="content-container">
-
-      { contentHeader }
-
-      <div className='reports-container'>
+        {contentHeader}
+        <div className='reports-container'>
           <div className='reports'>
             <div>
               <a href={item.farmReports} target='_blank'>Financial Reports</a>
@@ -145,148 +134,64 @@ function DaoMarketplace({ registeredDAOs, setRegisteredDAOs }) {
               <a href={item.name} target='_blank'>Farm Reports</a>
             </div>
           </div>
-            
           <div className="invested-form">
             <div>
-                <p className='descriptionArea' >Investors</p>
-                <div  className='descriptionArZea'>
-                    { hyperlinkTag }
-                </div>
-            </div>
-
-            <div>
-                <p className='descriptionArea' >Owners</p>
-                <div  className='descriptionArea'>
-                    <a href={`https://sepolia.etherscan.io/address/${item.address1}`} target='_blank'>{item.address1.slice(0,6)}...{item.address1.slice(38,42)}</a>
-                    <a href={`https://sepolia.etherscan.io/address/${item.address2}`} target='_blank'>{item.address2.slice(0,6)}...{item.address2.slice(38,42)}</a>
-                </div>
-            </div>
-
-          </div> 
-      </div>
-
-      <div>
-          <button className="withdraw-button" onClick={ () => { setModalContent(investContent) } }>Invest in DAO</button>
-          <button className="exit-button" onClick={handleCloseModal}>Exit</button>
-      </div>
-
-      {/* </div> */}
-
-      {/* <p>That will cost you {investmentAmount} ETH</p> */}
-    </div>
-
-      // Invest section content
-      const investContent = 
-        <div className='content-container'>
-
-          <div className='content-container'>
-            <h2 className='dao-name'>{item.financialReports}</h2>
-                    
-            <div className="description">
-              <p>{item.description}</p>
-            </div>
-                
-            <div className="invested-form">
-                <p className='descriptionArea' >Total Amount Invested</p>
-                <p className='descriptionArea' >{(parseFloat(utils.formatEther(item.amountInvested))*ethPrice).toFixed(5)} USD</p>
-            </div>
-          </div>
-
-          <div>
-            <label>Amount: </label>
-            <input 
-              className='invest-input'
-              type="number" 
-              placeholder="Enter amount to invest in dollars (USD)" 
-              name="DaoName"
-              onChange={ async (e) => {
-                investAMT = e.target.value; 
-                const priceInEth = await getPriceConsumer(investAMT); 
-                console.log("Price in eth is: ", priceInEth); 
-                setInvestmentAmount(priceInEth); 
-              }}
-              />
-          </div>
-
-          <button className="close-btn" onClick={ () => investDao(investAMT, parseInt(itemId)) }>
-            INVEST
-          </button> 
-
-          <div>
-              <button className="withdraw-button" onClick={ () => { setModalContent(daoContent) } }>Check DAO details</button>
-              <button className="exit-button" onClick={handleCloseModal}>Exit</button>
-          </div>
-
-        </div>
-
-    setModalTitle(title);
-    if (title === "LOAN") {
-      console.log("LOANNNNN")
-      setModalContent(
-        <div className='content-container'>
-          <div>
-            <label>Amount: </label>
-            <input 
-              type="number" 
-              placeholder="Enter amount to loan" 
-              name="Name"
-              // onChange={handleRegister}
-              />
-          </div>
-          
-          <button className="close-btn" onClick={ () => console.log("loan dao")}>
-            LOAN
-          </button> 
-        </div>
-      );
-    } else if (title === "INVEST") {
-      setModalContent(
-        <div className="content-container">
-
-          { contentHeader }
-
-          <div className='reports-container'>
-              <div className='reports'>
-                <div>
-                  <a href={item.farmReports} target='_blank'>Financial Reports</a>
-                </div>
-                <div>
-                  <a href={item.name} target='_blank'>Farm Reports</a>
-                </div>
+              <p className='descriptionArea'>Investors</p>
+              <div className='descriptionArZea'>
+                {hyperlinkTag}
               </div>
-                
-              <div className="invested-form">
-                <div>
-                    <p className='descriptionArea' >Investors</p>
-                    <div  className='descriptionArZea'>
-                        { hyperlinkTag }
-                    </div>
-                </div>
-
-                <div>
-                    <p className='descriptionArea' >Owners</p>
-                    <div  className='descriptionArea'>
-                        <a href={`https://sepolia.etherscan.io/address/${item.address1}`} target='_blank'>{item.address1.slice(0,6)}...{item.address1.slice(38,42)}</a>
-                        <a href={`https://sepolia.etherscan.io/address/${item.address2}`} target='_blank'>{item.address2.slice(0,6)}...{item.address2.slice(38,42)}</a>
-                    </div>
-                </div>
-
-              </div> 
-          </div>
-
-          <div>
-              <button className="withdraw-button" onClick={ () => { setModalContent(investContent) } }>Invest in DAO</button>
-              <button className="exit-button" onClick={handleCloseModal}>Exit</button>
-          </div>
-
-          {/* </div> */}
-
-          {/* <p>That will cost you {investmentAmount} ETH</p> */}
+            </div>
+            <div>
+              <p className='descriptionArea'>Owners</p>
+              <div className='descriptionArea'>
+                <a href={`https://sepolia.etherscan.io/address/${item.address1}`} target='_blank'>{item.address1.slice(0,6)}...{item.address1.slice(38,42)}</a>
+                <a href={`https://sepolia.etherscan.io/address/${item.address2}`} target='_blank'>{item.address2.slice(0,6)}...{item.address2.slice(38,42)}</a>
+              </div>
+            </div>
+          </div> 
         </div>
-      );
-    }
+        <div>
+          <button className="withdraw-button" onClick={() => setModalContent(investContent)}>Invest in DAO</button>
+          <button className="exit-button" onClick={handleCloseModal}>Exit</button>
+        </div>
+      </div>
+    );
+  
+    const investContent = (
+      <div className='content-container'>
+        {contentHeader}
+        <div>
+          <label>Amount: </label>
+          <input 
+            className='invest-input'
+            type="number" 
+            placeholder="Enter amount to invest in dollars (USD)" 
+            name="DaoName"
+            onChange={async (e) => {
+              investAMT = e.target.value; 
+              const priceInEth = await getPriceConsumer(investAMT); 
+              console.log("Price in eth is: ", priceInEth); 
+              setInvestmentAmount(priceInEth); 
+            }}
+          />
+        </div>
+        <button className="close-btn" onClick={() => investDao(investAMT, parseInt(itemId))}>INVEST</button> 
+        <div>
+          <button className="withdraw-button" onClick={() => setModalContent(daoContent)}>Check DAO details</button>
+          <button className="exit-button" onClick={handleCloseModal}>Exit</button>
+        </div>
+      </div>
+    );
+    
+    // Setting title to Invest 
+    setModalTitle(title);
+
+    // Setting the modal content
+    setModalContent(daoContent);
+    
     setShowModal(true);
   }
+  
 
   useEffect(() => {
     getRegisteredDAOs(); 
