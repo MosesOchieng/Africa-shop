@@ -24,16 +24,17 @@ const DAO = ({ daoContent, setShowDao }) => {
             <a href={`https://sepolia.etherscan.io/address/${investor}`} target='_blank' className='investors'>{investor.slice(0,6)}...{investor.slice(38,42)}</a>
         )
     })
-    console.log("Investors: ", hyperlinkTag); 
 
     return (
         <div className="login-container">
 
             <div className="login-form">
                 <h2>{daoContent.financialReports}</h2>
+
                 <div className="description">
                     <p>{daoContent.description}</p>
                 </div>
+
                 <div className="invested-form">
                     <p className='descriptionArea' >Total Amount Invested</p>
                     <p className='descriptionArea' >{utils.formatEther(daoContent.amountInvested)} USD</p>
