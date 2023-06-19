@@ -41,6 +41,14 @@ h1 {
   box-shadow: green;
 }
 
+.pending {
+  color: red;
+}
+
+.approved {
+  color: green;
+}
+
 /* DAO styles */
 .content-container {
   height: 70vh;

@@ -161,21 +161,35 @@ function DaoMarketplace({ registeredDAOs, setRegisteredDAOs }) {
       <div className='content-container'>
         {contentHeader}
         <div>
-          <label>Amount: </label>
-          <input 
-            className='invest-input'
-            type="number" 
-            placeholder="Enter amount to invest in dollars (USD)" 
-            name="DaoName"
-            onChange={async (e) => {
-              investAMT = e.target.value; 
-              const priceInEth = await getPriceConsumer(investAMT); 
-              console.log("Price in eth is: ", priceInEth); 
-              setInvestmentAmount(priceInEth); 
-            }}
-          />
+          {
+            item.verified ? (
+              <div>
+                <label>Amount: </label>
+                <input 
+                  className='invest-input'
+                  type="number" 
+                  placeholder="Enter amount to invest in dollars (USD)" 
+                  name="DaoName"
+                  onChange={async (e) => {
+                    investAMT = e.target.value; 
+                    const priceInEth = await getPriceConsumer(investAMT); 
+                    console.log("Price in eth is: ", priceInEth); 
+                    setInvestmentAmount(priceInEth); 
+                  }}
+                />
+              </div>
+            ) : (
+              <div>
+                  This DAO is not yet approved for investment <br/> Contact admin 
+              </div>
+            )
+          }
         </div>
-        <button className="close-btn" onClick={() => investDao(investAMT, parseInt(itemId))}>INVEST</button> 
+        { 
+          item.verified && ( 
+            <button className="close-btn" onClick={() => investDao(investAMT, parseInt(itemId))}>INVEST</button> 
+          )     
+        }
         <div>
           <button className="withdraw-button" onClick={() => setModalContent(daoContent)}>Check DAO details</button>
           <button className="exit-button" onClick={handleCloseModal}>Exit</button>
@@ -228,6 +242,13 @@ function DaoMarketplace({ registeredDAOs, setRegisteredDAOs }) {
               <div className="card-buttons">
                 {/* <button onClick={() => handleShowModal("LOAN", item.id.toString())}>Loan</button> */}
                 <button onClick={() => handleShowModal("INVEST", item.id.toString(), item)}>Check full details</button>
+                  { 
+                    !item.verified ? (
+                      <p className='pending'>Pending Approval</p>
+                    ) : (
+                      <p className='approved'>Approved!</p>
+                    )
+                  }
               </div>
             </div>
           ))}
