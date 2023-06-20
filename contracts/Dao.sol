@@ -140,6 +140,30 @@ contract FarmDAO {
         emit DaoVerified(daoId);
     }
 
+    // Function for removing dao from marketplace 
+    function removeDao(uint daoId) public {
+        require(isAddressVerified(msg.sender), "Unauthorized access");
+        require(daoId > 0 && daoId <= daoID, "Invalid DAO ID");
+
+        Dao storage dao = daos[daoId];
+        require(!dao.verified, "Cannot remove a verified DAO");
+
+        // Remove the DAO from totalDAOs array
+        uint indexToRemove = daoId - 1;
+        require(indexToRemove < totalDAOs.length, "Invalid index");
+        require(totalDAOs[indexToRemove].id == daoId, "Invalid DAO ID in totalDAOs");
+
+        // Move the last DAO in the array to the index being removed
+        totalDAOs[indexToRemove] = totalDAOs[totalDAOs.length - 1];
+        totalDAOs.pop();
+
+        // Remove the DAO from daos mapping
+        delete daos[daoId];
+
+        emit DaoVerified(daoId);
+    }
+
+
     function isAddressVerified(address _address) public view returns (bool) {
         for (uint i = 0; i < verifiedAddresses.length; i++) {
             if (verifiedAddresses[i] == _address) {
