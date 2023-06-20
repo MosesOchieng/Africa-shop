@@ -117,13 +117,25 @@ contract FarmDAO {
     function getTotalInvestment(uint daoId) public view returns (uint) {
         return daos[daoId].amountInvested;
     }
-
+    
+    // Function for verifying the DAO
     function verifyDao(uint daoId) public {
         require(isAddressVerified(msg.sender), "Unauthorized access");
         require(daoId > 0 && daoId <= daoID, "Invalid DAO ID");
 
         Dao storage dao = daos[daoId];
         dao.verified = true;
+
+        emit DaoVerified(daoId);
+    }
+
+    // Function for unverifying the DAO 
+    function unverifyDao(uint daoId) public {
+        require(isAddressVerified(msg.sender), "Unauthorized access");
+        require(daoId > 0 && daoId <= daoID, "Invalid DAO ID");
+
+        Dao storage dao = daos[daoId];
+        dao.verified = false;
 
         emit DaoVerified(daoId);
     }
